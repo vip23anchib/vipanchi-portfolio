@@ -8,67 +8,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        obsidian: {
-          DEFAULT: '#080B10',
-          50: '#141A24',
-          100: '#10151E',
-          200: '#0C1017',
-          300: '#080B10',
-          400: '#05070A',
+        transit: {
+          dark: '#0C0E14',
+          board: '#12151F',
+          card: '#181C28',
+          hover: '#202636',
+          border: '#283044',
+          muted: '#8B949E',
+          light: '#F3F4F6',
         },
-        surface: {
-          950: '#0A0E15',
-          900: '#0F141E',
-          850: '#131A26',
-          800: '#182130',
-          700: '#222E42',
-          600: '#334155',
-        },
-        cyan: {
-          glow: '#00F2FE',
-          electric: '#00D2B4',
-        },
-        emerald: {
-          telemetry: '#10B981',
-          accent: '#059669',
-        },
-        border: {
-          subtle: 'rgba(255, 255, 255, 0.08)',
-          glow: 'rgba(0, 242, 254, 0.25)',
-          slate: '#1E293B',
+        metro: {
+          backend: '#0057B8',   // Vignelli Blue
+          data: '#FF6319',      // Subway Orange
+          ml: '#80397B',        // Metropolitan Purple
+          frontend: '#00933C',  // Transit Green
+          yellow: '#FFD100',    // Signage Yellow
+          amber: '#F59E0B',
+          red: '#EE352E',
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
-        'glow-pulse': 'glowPulse 4s ease-in-out infinite',
-        'grid-scroll': 'gridScroll 20s linear infinite',
-        'radar': 'radar 8s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
+        'station-pulse': 'stationPulse 2s ease-in-out infinite',
+        'train-pulse': 'trainPulse 1.5s ease-in-out infinite',
       },
       keyframes: {
-        glowPulse: {
-          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        stationPulse: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.35)', opacity: '0.6' },
         },
-        gridScroll: {
-          '0%': { backgroundPosition: '0 0' },
-          '100%': { backgroundPosition: '40px 40px' },
-        },
-        radar: {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-8px)' },
+        trainPulse: {
+          '0%, 100%': { filter: 'drop-shadow(0 0 6px rgba(255, 209, 0, 0.8))' },
+          '50%': { filter: 'drop-shadow(0 0 16px rgba(255, 209, 0, 1))' },
         }
-      },
-      backgroundImage: {
-        'cyber-grid': "radial-gradient(rgba(0, 242, 254, 0.12) 1px, transparent 1px)",
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       }
     },
   },
