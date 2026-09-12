@@ -1,133 +1,144 @@
-import React, { useState } from 'react';
-import { 
-  Code2, 
-  Server, 
-  Database, 
-  BarChart3, 
-  Layout, 
-  Wrench, 
-  Check, 
-  Cpu, 
-  Sparkles
-} from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Server, Database, Cpu, Layout, Code2, Sparkles, Terminal, Check } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function SkillsSection() {
-  const { categories } = portfolioData.skills;
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const categoryIcons = {
-    "Languages": Code2,
-    "Backend & Architecture": Server,
-    "Databases & Data Engineering": Database,
-    "Data, Analytics & AI": BarChart3,
-    "Frontend & UI": Layout,
-    "Tools & DevOps": Wrench,
-  };
-
-  const filteredCategories = activeCategory === "All" 
-    ? categories 
-    : categories.filter(c => c.name === activeCategory);
+  const skillDomains = [
+    {
+      title: 'Backend & Concurrency Architecture',
+      code: 'B',
+      color: '#1B5FA8',
+      icon: Server,
+      description: 'Building high-concurrency server APIs, relational database locking, authentication boundaries, and async task execution.',
+      skills: [
+        { name: 'Python', level: 95, detail: 'Primary Backend Language (Django / FastAPI)' },
+        { name: 'Django & DRF', level: 95, detail: 'Full MVC, Serializers, ViewSets, Token Auth' },
+        { name: 'Database Locking', level: 92, detail: 'Pessimistic Locking with select_for_update()' },
+        { name: 'RESTful API Design', level: 95, detail: 'Normalized Schemas, Idempotency, RBAC' },
+        { name: 'Async Task Workers', level: 85, detail: 'Django-Q2 & Background Daemons' }
+      ]
+    },
+    {
+      title: 'Databases & Data Engineering',
+      code: 'D',
+      color: '#E05A2B',
+      icon: Database,
+      description: 'Architecting normalized schemas, complex analytical queries, forensic anomaly detection, and automated ETL ingestion.',
+      skills: [
+        { name: 'PostgreSQL & MySQL', level: 95, detail: 'Schema Normalization, Indexes, JSONB' },
+        { name: 'Advanced SQL', level: 95, detail: 'Window Functions, Common Table Expressions (CTEs)' },
+        { name: 'Pandas & NumPy', level: 90, detail: 'Data Cleaning, Statistical Z-Score Outliers' },
+        { name: 'Power BI & Analytics', level: 88, detail: 'Executive Dashboards & Forensic Modeling' },
+        { name: 'ETL Pipelines', level: 90, detail: 'Automated Watch-Folder Ingestion Daemons' }
+      ]
+    },
+    {
+      title: 'ML, Audio & AI Systems',
+      code: 'M',
+      color: '#7E347D',
+      icon: Cpu,
+      description: 'Integrating automatic speech recognition, multi-speaker call diarization, and LLM evaluation workflows.',
+      skills: [
+        { name: 'OpenAI Whisper', level: 90, detail: 'Speech-to-Text Transcription Pipelines' },
+        { name: 'PyAnnote', level: 85, detail: 'Speaker Diarization & Voice Embeddings' },
+        { name: 'FFmpeg Core', level: 88, detail: 'Multi-Channel Audio Chunking & Processing' },
+        { name: 'OpenAI API', level: 90, detail: 'Resume Shortlisting & Semantic Candidate Ranking' },
+        { name: 'Google Gemini API', level: 88, detail: 'Clinical AI Triage & Structured Summaries' }
+      ]
+    },
+    {
+      title: 'Frontend, Systems & Tooling',
+      code: 'F',
+      color: '#1B824C',
+      icon: Layout,
+      description: 'Building responsive user interfaces, dynamic canvas schematics, desktop GUIs, and developer workflows.',
+      skills: [
+        { name: 'React.js', level: 88, detail: 'Hooks, State Architecture, Component Design' },
+        { name: 'Tailwind CSS', level: 92, detail: 'Modern Responsive Layouts' },
+        { name: 'HTML5 Canvas & PyQt5', level: 85, detail: 'Interactive Industrial Schematics' },
+        { name: 'OAuth 2.0 & JWT', level: 90, detail: 'Google Calendar API Sync, Token Security' },
+        { name: 'Git & Linux / Bash', level: 92, detail: 'Branching Workflows & Background Services' }
+      ]
+    }
+  ];
 
   return (
-    <section id="skills" className="py-20 relative">
+    <section id="skills" className="py-16 md:py-20 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-white/10 gap-4">
-          <div>
-            <span className="font-mono text-xs text-cyan-glow uppercase tracking-[0.2em]">
-              // 02. TECHNICAL MATRIX
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
-              Skills & Systems Competency
-            </h2>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-1">
+            <Code2 className="w-4 h-4" />
+            <span>Technical Competencies</span>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-md">
-            Indexed by proficiency and real-world engineering application across backend services, data stores, and AI models.
+          <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
+            Skills & Engineering Domains
+          </h2>
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+            Proficiencies categorized across backend systems, relational databases, AI/speech pipelines, and modern frontend tools.
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          <button
-            onClick={() => setActiveCategory("All")}
-            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all cursor-pointer ${
-              activeCategory === "All"
-                ? 'bg-cyan-glow text-obsidian font-bold shadow-[0_0_15px_rgba(0,242,254,0.3)]'
-                : 'bg-surface-900 text-slate-300 hover:text-white border border-white/10 hover:border-white/20'
-            }`}
-          >
-            All Matrix ({categories.reduce((acc, cat) => acc + cat.skills.length, 0)})
-          </button>
-
-          {categories.map((cat) => {
-            const Icon = categoryIcons[cat.name] || Code2;
-            const isSelected = activeCategory === cat.name;
+        {/* 4-Domain Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skillDomains.map((domain, idx) => {
+            const IconComponent = domain.icon;
             return (
-              <button
-                key={cat.name}
-                onClick={() => setActiveCategory(cat.name)}
-                className={`px-3.5 py-2 rounded-lg text-xs font-mono flex items-center space-x-2 transition-all cursor-pointer ${
-                  isSelected
-                    ? 'bg-cyan-glow/20 text-cyan-glow border border-cyan-glow/40 shadow-sm'
-                    : 'bg-surface-900 text-slate-300 hover:text-white border border-white/10'
-                }`}
+              <div
+                key={idx}
+                className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex flex-col justify-between"
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{cat.name}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCategories.map((category) => {
-            const Icon = categoryIcons[category.name] || Code2;
-            return (
-              <div 
-                key={category.name}
-                className="rounded-xl glass-panel p-6 border border-white/10 hover:border-cyan-glow/30 transition-all space-y-4"
-              >
-                {/* Category Header */}
-                <div className="flex items-center space-x-3 pb-3 border-b border-white/10">
-                  <div className="p-2 rounded-lg bg-surface-950 text-cyan-glow border border-white/5">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white tracking-wide">
-                      {category.name}
-                    </h3>
-                    <span className="text-[10px] font-mono text-slate-500">
-                      {category.skills.length} core competencies
-                    </span>
-                  </div>
-                </div>
-
-                {/* Skill Items */}
-                <div className="space-y-3.5">
-                  {category.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-slate-200">{skill.name}</span>
-                        <span className="font-mono text-[11px] text-cyan-glow font-medium">{skill.level}%</span>
+                <div>
+                  {/* Domain Header */}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-sm"
+                        style={{ backgroundColor: domain.color }}
+                      >
+                        {domain.code}
                       </div>
-
-                      {/* Progress bar */}
-                      <div className="h-1.5 w-full bg-surface-950 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-cyan-glow to-teal-400 rounded-full transition-all duration-500"
-                          style={{ width: `${skill.level}%` }}
-                        />
+                      <div>
+                        <h3 className="font-extrabold text-ink-primary text-base">
+                          {domain.title}
+                        </h3>
+                        <p className="text-xs text-ink-muted">
+                          {domain.description}
+                        </p>
                       </div>
-
-                      <p className="text-[11px] text-slate-400 font-mono pl-1">
-                        › {skill.highlight}
-                      </p>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Skills List */}
+                  <div className="space-y-3.5 mt-5">
+                    {domain.skills.map((skill, sIdx) => (
+                      <div key={sIdx} className="space-y-1">
+                        <div className="flex items-center justify-between text-xs font-bold text-ink-primary">
+                          <span>{skill.name}</span>
+                          <span className="text-ink-muted font-mono text-[11px]">{skill.level}%</span>
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="w-full h-1.5 rounded-full bg-[#FAF8F4] border border-[#DDD6C9] overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-1000"
+                            style={{
+                              width: `${skill.level}%`,
+                              backgroundColor: domain.color
+                            }}
+                          />
+                        </div>
+
+                        <div className="text-[11px] text-ink-secondary font-medium">
+                          {skill.detail}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
               </div>
             );
           })}

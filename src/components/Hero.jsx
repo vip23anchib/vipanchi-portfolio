@@ -1,179 +1,113 @@
 import React from 'react';
-import { 
-  Database, 
-  Cpu, 
-  GitBranch, 
-  Terminal as TerminalIcon, 
-  ArrowRight, 
-  Download, 
-  ShieldCheck, 
-  Activity,
-  Layers,
-  Sparkles
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Download, Mail, ArrowDown, Sparkles, MapPin, Database, Server, Cpu } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
-export default function Hero({ onOpenTerminal, onOpenAbout }) {
-  const { personal, education } = portfolioData;
-
+export default function Hero({ onOpenContact }) {
   return (
-    <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background Cyber Grid & Ambient Glows */}
-      <div className="absolute inset-0 cyber-bg opacity-35 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-glow/10 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-emerald-telemetry/10 blur-[120px] rounded-full pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Telemetry Capsule */}
-        <div className="flex flex-wrap items-center gap-2 mb-6">
-          <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-surface-900/90 border border-cyan-glow/30 text-xs font-mono text-slate-300 shadow-sm backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-telemetry animate-pulse" />
-            <span className="text-cyan-glow font-semibold">SYSTEM STATUS:</span>
-            <span>{personal.status}</span>
-          </div>
-
-          <button
-            onClick={onOpenAbout}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-surface-900/70 hover:bg-surface-850 border border-white/10 text-xs font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-telemetry" />
-            <span>VIT Bhopal CSE • 9.04 CGPA</span>
-          </button>
-        </div>
-
-        {/* Monolithic Heading & Lead */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="max-w-3xl space-y-6">
           
-          {/* Left Column: Authoritative Technical Pitch */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="space-y-2">
-              <p className="font-mono text-xs uppercase tracking-[0.25em] text-cyan-glow">
-                // DISTRIBUTED ARCHITECTURE & RELATIONAL DATA PIPELINES
-              </p>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
-                {personal.name.split(' ')[0]} <span className="text-gradient-cyan">{personal.name.split(' ')[1]}</span>
-              </h1>
-              <p className="text-xl sm:text-2xl font-semibold text-slate-300 tracking-wide font-mono pt-1">
-                {personal.title}
-              </p>
-            </div>
+          {/* Status Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#DDD6C9] shadow-paper-card"
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span className="text-xs font-bold text-ink-primary">
+              Available for SDE & Backend Roles • 2027 Grad (9.04 CGPA)
+            </span>
+          </motion.div>
 
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed">
-              B.Tech Computer Science student at <span className="text-slate-200 font-medium">VIT Bhopal</span> with a <span className="text-cyan-glow font-bold font-mono">9.04 CGPA</span>. 
-              Engineering production-ready backends, concurrency-safe transactional workflows with <span className="text-slate-200 font-mono text-sm">select_for_update()</span>, 
-              scalable <span className="text-slate-200 font-medium">Django REST Framework</span> APIs, and forensic data audit analytics.
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-3"
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-ink-primary font-sans leading-[1.1]">
+              Hi, I’m <span className="text-metro-backend underline decoration-metro-backend/30 underline-offset-8">Vipanchi Barman</span>.
+            </h1>
+            <p className="text-xl sm:text-2xl font-extrabold text-ink-secondary tracking-tight">
+              Backend & Data Systems Engineer
             </p>
+          </motion.div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a
-                href="#projects"
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-glow to-teal-400 text-obsidian font-bold text-sm flex items-center space-x-2 hover:opacity-95 hover:shadow-[0_0_20px_rgba(0,242,254,0.35)] transition-all cursor-pointer"
-              >
-                <span>Explore Architecture & Projects</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+          {/* Pitch */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-lg text-ink-secondary leading-relaxed font-sans max-w-2xl"
+          >
+            {portfolioData.personal.tagline} Building robust, concurrency-safe services with Python, Django REST Framework, PostgreSQL row-level locks, and scalable ETL/AI workflows.
+          </motion.p>
 
-              <a
-                href={personal.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-                className="px-5 py-3 rounded-lg bg-surface-900 hover:bg-surface-850 border border-white/15 hover:border-cyan-glow/40 text-slate-200 font-semibold text-sm flex items-center space-x-2 transition-all shadow-sm"
-              >
-                <Download className="w-4 h-4 text-cyan-glow" />
-                <span>Resume PDF</span>
-              </a>
+          {/* Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-3 pt-2"
+          >
+            <a
+              href="#network-map"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-metro-backend hover:bg-[#154E8C] text-white font-bold text-sm shadow-paper transition"
+            >
+              <ArrowDown className="w-4 h-4" />
+              <span>Explore Interactive Map</span>
+            </a>
 
-              <button
-                onClick={onOpenTerminal}
-                className="px-4 py-3 rounded-lg bg-surface-950 border border-cyan-glow/20 text-xs font-mono text-slate-300 hover:text-cyan-glow hover:border-cyan-glow flex items-center space-x-2 transition-all cursor-pointer"
-              >
-                <TerminalIcon className="w-4 h-4 text-cyan-glow" />
-                <span>$ query_system</span>
-              </button>
-            </div>
+            <a
+              href="/Barman_Vipanchi_Resume_10-09-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-sm border border-[#DDD6C9] shadow-paper transition"
+            >
+              <Download className="w-4 h-4 text-metro-backend" />
+              <span>Download Resume</span>
+            </a>
 
-            {/* Core Tech Stack Badges */}
-            <div className="pt-4 flex flex-wrap items-center gap-2 font-mono text-xs text-slate-400">
-              <span className="text-slate-500 uppercase tracking-wider text-[11px] mr-1">Stack:</span>
-              {["Python", "Django / DRF", "PostgreSQL", "SQL (CTEs/Window)", "PyAnnote / Whisper", "React", "Tailwind"].map((tech) => (
-                <span 
-                  key={tech}
-                  className="px-2.5 py-1 rounded bg-surface-900 border border-white/5 text-slate-300 hover:border-cyan-glow/30 transition-colors"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column: Architectural Telemetry HUD Card */}
-          <div className="lg:col-span-4 w-full">
-            <div className="rounded-xl glass-panel p-5 border border-white/10 shadow-2xl relative group">
-              {/* Card Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10 text-xs font-mono text-slate-400">
-                <div className="flex items-center space-x-2">
-                  <Activity className="w-4 h-4 text-emerald-telemetry animate-pulse" />
-                  <span className="font-semibold text-slate-200">ENGINEERING_TELEMETRY</span>
-                </div>
-                <span className="px-2 py-0.5 rounded bg-cyan-glow/10 text-cyan-glow text-[10px] font-bold">
-                  v2026.09
-                </span>
-              </div>
-
-              {/* Live Metric Stats Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                {personal.stats.map((stat, idx) => (
-                  <div 
-                    key={idx}
-                    className="p-3 rounded-lg bg-surface-950/70 border border-white/5 hover:border-cyan-glow/20 transition-all"
-                  >
-                    <div className="text-xl sm:text-2xl font-bold font-mono text-white">
-                      {stat.value}
-                      <span className="text-xs font-normal text-slate-400">{stat.suffix}</span>
-                    </div>
-                    <div className="text-[11px] font-medium text-cyan-glow/90 truncate mt-0.5">
-                      {stat.label}
-                    </div>
-                    <div className="text-[10px] text-slate-500 truncate mt-0.5">
-                      {stat.detail}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Quick CLI Query Prompt */}
-              <div className="p-3 rounded-lg bg-black/60 border border-white/10 font-mono text-xs space-y-1.5">
-                <div className="text-slate-500 flex items-center justify-between text-[11px]">
-                  <span>// LIVE REPL RUNNER</span>
-                  <span className="text-emerald-telemetry flex items-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-telemetry mr-1" />
-                    ONLINE
-                  </span>
-                </div>
-                <div className="text-cyan-glow font-medium">
-                  $ curl https://api.vipanchi.dev/v1/profile
-                </div>
-                <div className="text-slate-400 text-[11px] space-y-0.5 pl-2 border-l border-cyan-glow/30">
-                  <p>{"{"} "degree": "B.Tech CSE", "cgpa": 9.04 {"}"}</p>
-                  <p>{"{"} "internships": ["Meslova Systems", "Saurabhi Media"] {"}"}</p>
-                </div>
-              </div>
-
-              {/* View Deep Bio Action */}
-              <button
-                onClick={onOpenAbout}
-                className="w-full mt-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-glow/30 text-xs font-mono text-slate-300 hover:text-cyan-glow flex items-center justify-center space-x-2 transition-all cursor-pointer"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>View Full Academic & Systems Bio</span>
-              </button>
-            </div>
-          </div>
+            <button
+              onClick={onOpenContact}
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4EFE6] hover:bg-[#EAE4D9] text-ink-primary font-bold text-sm border border-[#DDD6C9] transition"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Get in Touch</span>
+            </button>
+          </motion.div>
 
         </div>
+
+        {/* Highlight Metrics Cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t border-[#DDD6C9]"
+        >
+          {portfolioData.personal.stats.map((stat, idx) => (
+            <div
+              key={idx}
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex flex-col justify-center"
+            >
+              <div className="text-2xl sm:text-3xl font-black text-ink-primary font-sans tracking-tight">
+                {stat.value}<span className="text-metro-backend text-lg">{stat.suffix}</span>
+              </div>
+              <div className="text-xs sm:text-sm font-bold text-ink-secondary mt-1">
+                {stat.label}
+              </div>
+              <div className="text-[11px] text-ink-muted mt-0.5">
+                {stat.detail}
+              </div>
+            </div>
+          ))}
+        </motion.div>
 
       </div>
     </section>

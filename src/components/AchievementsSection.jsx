@@ -1,75 +1,65 @@
 import React from 'react';
-import { Trophy, Award, ShieldAlert, CreditCard, Users, Star, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Award, ShieldCheck, Trophy, Users, Star, CheckCircle2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function AchievementsSection() {
-  const { achievements } = portfolioData;
-
   const iconMap = {
-    ShieldAlert: ShieldAlert,
+    ShieldAlert: ShieldCheck,
     Award: Award,
-    CreditCard: CreditCard,
-    Users: Users,
+    CreditCard: Trophy,
+    Users: Users
   };
 
   return (
-    <section id="achievements" className="py-20 relative">
+    <section id="achievements" className="py-16 md:py-20 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-white/10 gap-4">
-          <div>
-            <span className="font-mono text-xs text-cyan-glow uppercase tracking-[0.2em]">
-              // 05. HONORS & LEADERSHIP
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
-              Hackathons & Recognition
-            </h2>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-1">
+            <Award className="w-4 h-4 text-metro-gold" />
+            <span>Honors & Hackathon Recognition</span>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-md">
-            National hackathon qualifications, system design accolades, and engineering leadership.
+          <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
+            Achievements & Leadership
+          </h2>
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+            National hackathon placements, cybersecurity architecture recognition, and leadership initiatives.
           </p>
         </div>
 
-        {/* 2x2 Grid */}
+        {/* Achievements Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {achievements.map((item) => {
-            const Icon = iconMap[item.icon] || Trophy;
+          {portfolioData.achievements.map((item) => {
+            const IconComponent = iconMap[item.icon] || Award;
             return (
               <div
                 key={item.id}
-                className="rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 hover:border-cyan-glow/40 transition-all flex flex-col justify-between space-y-4 group shadow-lg"
+                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex items-start gap-4 transition-all hover:shadow-paper"
               >
-                <div>
-                  {/* Top Badge */}
-                  <div className="flex items-center justify-between gap-3 mb-4">
-                    <div className="p-3 rounded-xl bg-cyan-glow/10 border border-cyan-glow/30 text-cyan-glow group-hover:scale-110 transition-transform">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="px-3 py-1 rounded-full bg-surface-950 border border-white/10 text-xs font-mono font-bold text-cyan-glow">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF8F4] text-metro-gold border border-[#DDD6C9] flex items-center justify-center shrink-0 shadow-sm">
+                  <IconComponent className="w-6 h-6 text-metro-gold" />
+                </div>
+
+                <div className="space-y-2 flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white tracking-wide group-hover:text-cyan-glow transition-colors">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-ink-primary font-sans leading-snug">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs font-mono text-slate-400 mt-1">
-                    Organized by: <strong className="text-slate-200">{item.organizer}</strong>
-                  </p>
+                  <div className="text-xs font-bold text-ink-muted">
+                    {item.event} • <span className="text-ink-secondary">{item.organizer}</span>
+                  </div>
 
-                  <p className="text-sm text-slate-300 leading-relaxed mt-3">
+                  <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed pt-1">
                     {item.description}
                   </p>
-                </div>
-
-                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-slate-500">
-                  <span>{item.event}</span>
-                  <span className="text-emerald-telemetry flex items-center">
-                    <Star className="w-3.5 h-3.5 mr-1 fill-emerald-telemetry/20" />
-                    VERIFIED
-                  </span>
                 </div>
               </div>
             );

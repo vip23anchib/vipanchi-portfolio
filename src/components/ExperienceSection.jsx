@@ -1,108 +1,96 @@
 import React from 'react';
-import { Briefcase, Calendar, MapPin, CheckCircle2, Server, Cpu, ArrowUpRight, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Briefcase, Calendar, MapPin, CheckCircle2, Layers, Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function ExperienceSection() {
-  const { experience } = portfolioData;
-
   return (
-    <section id="experience" className="py-20 relative">
+    <section id="experience" className="py-16 md:py-20 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-white/10 gap-4">
-          <div>
-            <span className="font-mono text-xs text-cyan-glow uppercase tracking-[0.2em]">
-              // 03. INDUSTRY TIMELINE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
-              Engineering Work Experience
-            </h2>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-1">
+            <Briefcase className="w-4 h-4" />
+            <span>Professional Track Record</span>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-md">
-            Production backend development, asynchronous audio processing pipelines, and automated ETL ingestion.
+          <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
+            Work Experience
+          </h2>
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+            Software engineering internships building production backend APIs, data pipelines, and AI-driven screening workflows.
           </p>
         </div>
 
-        {/* Timeline List */}
-        <div className="space-y-8 relative">
-          
-          {/* Vertical Line on large screens */}
-          <div className="hidden lg:block absolute left-8 top-6 bottom-6 w-[2px] bg-gradient-to-b from-cyan-glow/60 via-teal-400/40 to-transparent" />
-
-          {experience.map((exp, idx) => (
-            <div 
+        {/* Experience Cards Grid */}
+        <div className="space-y-6">
+          {portfolioData.experience.map((exp, idx) => (
+            <div
               key={exp.id}
-              className="relative lg:pl-20 transition-all group"
+              className="p-6 sm:p-8 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card space-y-5 transition-all hover:shadow-paper"
             >
-              {/* Timeline Indicator Dot */}
-              <div className="hidden lg:flex absolute left-6 top-6 -translate-x-1/2 w-5 h-5 rounded-full bg-obsidian border-2 border-cyan-glow items-center justify-center group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(0,242,254,0.6)] transition-all">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-glow" />
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#DDD6C9]">
+                <div>
+                  <div className="flex items-center gap-2.5 mb-1">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FAF8F4] text-metro-backend border border-[#DDD6C9]">
+                      {exp.type}
+                    </span>
+                    <span className="text-xs text-ink-muted font-medium flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-metro-backend" />
+                      <span>{exp.location}</span>
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-ink-primary font-sans">
+                    {exp.role}
+                  </h3>
+                  <div className="text-sm font-bold text-ink-secondary">
+                    {exp.company}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FAF8F4] text-ink-secondary text-xs font-bold border border-[#DDD6C9] self-start sm:self-auto">
+                  <Calendar className="w-3.5 h-3.5 text-metro-backend" />
+                  <span>{exp.period}</span>
+                </div>
               </div>
 
-              {/* Main Experience Box */}
-              <div className="rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 hover:border-cyan-glow/30 transition-all shadow-xl space-y-5">
+              {/* Highlights */}
+              <div className="space-y-2.5">
+                {exp.highlights.map((item, hIdx) => (
+                  <div key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm text-ink-secondary leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-metro-backend shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Metrics Pill & Tech Stack */}
+              <div className="pt-3 border-t border-[#DDD6C9] flex flex-col md:flex-row md:items-center justify-between gap-4">
                 
-                {/* Header Info */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <span className="px-2.5 py-0.5 rounded bg-cyan-glow/10 text-cyan-glow border border-cyan-glow/20 text-[11px] font-mono font-bold">
-                        {exp.type}
-                      </span>
-                      <span className="text-xs font-mono text-slate-400 flex items-center">
-                        <MapPin className="w-3.5 h-3.5 mr-1 text-slate-500" />
-                        {exp.location}
-                      </span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm font-semibold text-cyan-glow/90 font-mono">
-                      {exp.company}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center space-x-2 text-xs font-mono text-slate-300 px-3 py-1.5 rounded-lg bg-surface-950 border border-white/5 self-start sm:self-auto">
-                    <Calendar className="w-3.5 h-3.5 text-cyan-glow" />
-                    <span>{exp.period}</span>
-                  </div>
-                </div>
-
-                {/* System Metrics Chip */}
-                <div className="p-3 rounded-lg bg-surface-950/80 border border-cyan-glow/20 text-xs font-mono text-cyan-glow flex items-center space-x-2">
-                  <Server className="w-4 h-4 text-emerald-telemetry shrink-0" />
-                  <span className="font-semibold text-slate-300">TELEMETRY:</span>
-                  <span className="text-slate-400">{exp.systemMetrics}</span>
-                </div>
-
-                {/* Bullet Points */}
-                <ul className="space-y-3 text-sm text-slate-300">
-                  {exp.highlights.map((bullet, bIdx) => (
-                    <li key={bIdx} className="flex items-start space-x-3 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-glow shrink-0 mt-1" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tech Stack Pills */}
-                <div className="pt-2 border-t border-white/5 flex flex-wrap items-center gap-1.5 font-mono text-xs">
-                  <span className="text-[11px] text-slate-500 mr-2 uppercase tracking-wider">Technologies:</span>
-                  {exp.techStack.map((tech) => (
-                    <span 
-                      key={tech} 
-                      className="px-2.5 py-1 rounded bg-surface-900 border border-white/5 text-slate-300 hover:border-cyan-glow/30 transition-colors"
+                {/* Tech Chips */}
+                <div className="flex flex-wrap gap-1.5">
+                  {exp.techStack.map((tech, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="px-2.5 py-1 rounded-lg bg-[#FAF8F4] text-ink-secondary text-xs font-medium border border-[#DDD6C9]"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
+                {/* System Metrics */}
+                {exp.systemMetrics && (
+                  <div className="px-3 py-1.5 rounded-xl bg-[#FAF8F4] text-ink-primary text-xs font-bold border border-[#DDD6C9] shrink-0">
+                    {exp.systemMetrics}
+                  </div>
+                )}
+
               </div>
+
             </div>
           ))}
-
         </div>
 
       </div>

@@ -1,105 +1,104 @@
 import React from 'react';
-import { GraduationCap, ShieldCheck, Database, Cpu, Workflow, Terminal, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { GraduationCap, BookOpen, CheckCircle2, Award, User, MapPin } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
-export default function AboutSection({ onOpenAboutModal }) {
-  const { education, personal } = portfolioData;
-
+export default function AboutSection() {
   return (
-    <section id="about" className="py-20 relative">
+    <section id="about" className="py-16 md:py-20 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-white/10 gap-4">
-          <div>
-            <span className="font-mono text-xs text-cyan-glow uppercase tracking-[0.2em]">
-              // 01. ARCHITECTURAL PROFILE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
-              Engineering Mindset & Education
-            </h2>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-1">
+            <User className="w-4 h-4" />
+            <span>Background & Foundation</span>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-md">
-            Dedicated to scalable backends, reliable data ingestion, and disciplined database design.
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
+            About Me
+          </h2>
         </div>
 
-        {/* Bento Layout Grid for About */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Main Story Card (7 cols) */}
-          <div className="lg:col-span-7 rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 space-y-6">
-            <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-              <p>
-                Hi, I'm <strong className="text-white">Vipanchi Barman</strong>. I specialize in designing and implementing backend services that prioritize 
-                <span className="text-cyan-glow font-medium"> data integrity, low query latency,</span> and <span className="text-emerald-telemetry font-medium">operational resilience</span>.
+          {/* Left Column: Bio Narrative */}
+          <div className="lg:col-span-7 space-y-4 text-ink-secondary text-sm sm:text-base leading-relaxed">
+            <div className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card space-y-4">
+              <p className="font-bold text-ink-primary text-base sm:text-lg">
+                I am a backend developer and data systems engineer who enjoys architecting high-concurrency systems, writing resilient database transactions, and building intelligent data pipelines.
               </p>
+              
               <p>
-                Whether it's orchestrating a 15+ REST endpoint B2B SaaS platform at <strong className="text-slate-100">Meslova Systems</strong>, designing concurrency-safe booking engines with pessimistic locks at <strong className="text-slate-100">AyuSetu</strong>, or profiling 100K+ transactional ledgers for forensic audit anomalies at <strong className="text-slate-100">AuditLens</strong>, my priority is writing clean, tested, and maintainable software.
+                Currently pursuing my B.Tech in Computer Science and Engineering at <strong>Vellore Institute of Technology (VIT), Bhopal</strong> with a <strong>9.04 / 10.0 CGPA</strong>, I bridge core theoretical computer science with production-grade engineering.
               </p>
-            </div>
 
-            {/* Core Competencies Bullets */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {[
-                { title: "Concurrency Safety", desc: "select_for_update() row locking & partial indexes" },
-                { title: "Normalized Schemas", desc: "8+ entity schemas with indexed queries" },
-                { title: "Idempotent ETL", desc: "Automated ingestion with validation checks" },
-                { title: "AI & Speech Pipelines", desc: "OpenAI, Gemini, Whisper & PyAnnote" },
-              ].map((item, idx) => (
-                <div key={idx} className="p-3 rounded-lg bg-surface-950/60 border border-white/5 space-y-1">
-                  <div className="flex items-center space-x-2 text-xs font-mono text-cyan-glow">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-telemetry" />
-                    <span>{item.title}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 pl-5">{item.desc}</p>
-                </div>
-              ))}
+              <p>
+                During my software internships at <strong>Meslova Systems</strong> and <strong>Saurabhi Media</strong>, I built B2B SaaS backend infrastructures, designed 15+ secure RESTful endpoints with role-based access control (RBAC), engineered watch-folder ETL daemons, and integrated speech-to-text diarization pipelines using Whisper & PyAnnote.
+              </p>
+
+              <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold text-ink-secondary">
+                <span className="px-3 py-1.5 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-metro-backend" />
+                  <span>Bhopal / Hyderabad / Delhi, India</span>
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5 text-metro-gold" />
+                  <span>Smart India Hackathon Finalist</span>
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Education & University Card (5 cols) */}
-          <div className="lg:col-span-5 rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 flex flex-col justify-between space-y-6">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-                <div className="flex items-center space-x-2 text-cyan-glow">
-                  <GraduationCap className="w-5 h-5" />
-                  <span className="font-mono text-xs uppercase font-bold tracking-wider">ACADEMIC FOUNDATION</span>
+          {/* Right Column: Academic Credential Card */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card space-y-5">
+              
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-metro-backend/10 text-metro-backend flex items-center justify-center">
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-ink-primary text-base">
+                      {portfolioData.education.institution}
+                    </h3>
+                    <p className="text-xs text-ink-muted">
+                      {portfolioData.education.degree} in {portfolioData.education.major}
+                    </p>
+                  </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-emerald-telemetry/15 text-emerald-telemetry border border-emerald-telemetry/30 text-xs font-mono font-bold">
-                  {education.cgpa} CGPA
+
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs border border-emerald-300 shrink-0">
+                  {portfolioData.education.cgpa}
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-1">
-                {education.institution}
-              </h3>
-              <p className="text-xs font-mono text-cyan-glow/90 mb-4">
-                {education.degree} — {education.major}
-              </p>
-              <p className="text-xs text-slate-400 font-mono mb-4">
-                Graduation Timeline: <span className="text-slate-200">{education.expectedGraduation}</span>
-              </p>
+              <div className="text-xs text-ink-muted font-medium flex items-center justify-between border-t border-b border-[#DDD6C9] py-2.5">
+                <span>Timeline: 2023 – May 2027</span>
+                <span>Graduation Status: Final Year Track</span>
+              </div>
 
-              {/* Coursework Tags */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider block">Key Coursework:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {education.coursework.slice(0, 5).map((course, idx) => (
-                    <span key={idx} className="px-2.5 py-1 rounded bg-surface-950 text-[11px] text-slate-300 font-mono border border-white/5">
-                      {course}
-                    </span>
+              {/* Coursework Badges */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2.5 flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-metro-backend" />
+                  <span>Core Computer Science Disciplines</span>
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {portfolioData.education.coursework.map((course, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] text-xs font-medium text-ink-secondary flex items-center gap-2"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-metro-backend shrink-0" />
+                      <span className="truncate">{course}</span>
+                    </div>
                   ))}
                 </div>
               </div>
-            </div>
 
-            <button
-              onClick={onOpenAboutModal}
-              className="w-full py-2.5 rounded-lg bg-surface-900 hover:bg-surface-850 border border-white/10 hover:border-cyan-glow/40 text-xs font-mono text-slate-300 hover:text-cyan-glow transition-all cursor-pointer text-center"
-            >
-              Inspect Complete Academic Spec & Modules →
-            </button>
+            </div>
           </div>
 
         </div>
