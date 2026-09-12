@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TRANSIT_LINES, TRANSIT_STATIONS } from '../../data/transitData';
-import { X, ExternalLink, Code2, ArrowRight, ArrowLeft, Check, Copy, Sparkles, Building, GraduationCap, Award } from 'lucide-react';
+import { X, ExternalLink, Code2, ArrowRight, ArrowLeft, Check, Copy, Sparkles, GraduationCap, CheckCircle2 } from 'lucide-react';
 import { GithubIcon } from '../Icons';
 
 export default function StationInspector({
@@ -27,36 +27,36 @@ export default function StationInspector({
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#0F121A] text-zinc-100 shadow-2xl border-l border-zinc-700/80 flex flex-col animate-in slide-in-from-right duration-300">
+    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#FAF8F4] text-ink-primary shadow-2xl border-l border-[#DDD6C9] flex flex-col animate-in slide-in-from-right duration-300">
       
-      {/* Top Ticket Header Banner */}
-      <div className="p-4 sm:p-5 bg-black border-b-2 border-metro-yellow flex items-start justify-between gap-3">
+      {/* Top Header */}
+      <div className="p-5 bg-white border-b border-[#DDD6C9] flex items-start justify-between gap-3">
         <div>
-          {/* Line Route Bullets */}
-          <div className="flex items-center gap-1.5 mb-2">
+          {/* Skill Line Pills */}
+          <div className="flex flex-wrap items-center gap-1.5 mb-2">
             {station.lines?.map((lineKey) => {
               const line = Object.values(TRANSIT_LINES).find(l => l.id === lineKey);
               if (!line) return null;
               return (
                 <span
                   key={line.id}
-                  className="px-2 py-0.5 rounded-full text-[10px] font-black text-white uppercase tracking-wider flex items-center gap-1"
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white uppercase tracking-wider flex items-center gap-1 shadow-sm"
                   style={{ backgroundColor: line.color }}
                 >
                   <span>{line.code}</span>
-                  <span className="hidden sm:inline font-sans text-[9px]">{line.name}</span>
+                  <span className="hidden sm:inline font-sans text-[9px]">{line.name.split(' ')[0]}</span>
                 </span>
               );
             })}
-            <span className="px-2 py-0.5 rounded bg-zinc-800 text-[10px] font-mono text-zinc-300 font-bold">
+            <span className="px-2 py-0.5 rounded-md bg-[#EAE4D9] text-[11px] font-semibold text-ink-secondary">
               {station.category}
             </span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white font-sans uppercase">
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-ink-primary font-sans">
             {station.name}
           </h2>
-          <p className="text-xs text-zinc-400 font-mono mt-0.5">
+          <p className="text-xs text-ink-muted mt-0.5">
             {station.subtitle}
           </p>
         </div>
@@ -64,24 +64,24 @@ export default function StationInspector({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition"
+          className="p-1.5 rounded-lg bg-[#F4EFE6] hover:bg-[#EAE4D9] text-ink-secondary hover:text-ink-primary transition"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Action Bar (Live Demo, GitHub, Code View) */}
-      <div className="px-4 py-2.5 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between gap-2">
+      {/* Action Bar */}
+      <div className="px-5 py-3 bg-[#F4EFE6] border-b border-[#DDD6C9] flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           {station.live && (
             <a
               href={station.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm transition"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>Live Deployment</span>
+              <span>Live Website</span>
             </a>
           )}
           {station.github && (
@@ -89,7 +89,7 @@ export default function StationInspector({
               href={station.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold border border-zinc-700 transition"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#FAF8F4] text-ink-primary text-xs font-bold border border-[#DDD6C9] shadow-sm transition"
             >
               <GithubIcon className="w-3.5 h-3.5" />
               <span>GitHub Repo</span>
@@ -99,19 +99,19 @@ export default function StationInspector({
 
         {/* Tab switch */}
         {station.codeSnippet && (
-          <div className="flex items-center bg-black/40 p-0.5 rounded border border-zinc-800">
+          <div className="flex items-center bg-[#EAE4D9] p-0.5 rounded-lg border border-[#DDD6C9]">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
-                activeTab === 'overview' ? 'bg-zinc-800 text-white' : 'text-zinc-400'
+              className={`px-3 py-1 rounded-md text-xs font-bold transition ${
+                activeTab === 'overview' ? 'bg-white text-ink-primary shadow-sm' : 'text-ink-muted'
               }`}
             >
               Overview
             </button>
             <button
               onClick={() => setActiveTab('code')}
-              className={`px-2.5 py-1 rounded text-xs font-semibold flex items-center gap-1 transition ${
-                activeTab === 'code' ? 'bg-zinc-800 text-metro-yellow' : 'text-zinc-400'
+              className={`px-3 py-1 rounded-md text-xs font-bold flex items-center gap-1 transition ${
+                activeTab === 'code' ? 'bg-white text-metro-backend shadow-sm' : 'text-ink-muted'
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
@@ -122,30 +122,30 @@ export default function StationInspector({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
         
         {activeTab === 'overview' ? (
           <>
             {/* Summary Box */}
-            <div className="p-3.5 rounded-lg bg-zinc-900/80 border border-zinc-800 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+            <div className="p-4 rounded-xl bg-white border border-[#DDD6C9] text-xs sm:text-sm text-ink-secondary leading-relaxed font-sans shadow-paper-card">
               {station.summary}
             </div>
 
-            {/* Performance & Architecture Metrics */}
+            {/* Key Technical Highlights */}
             {station.stats && (
               <div>
-                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-metro-yellow" />
-                  <span>Key Telemetry & Engineering Specs</span>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2.5 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-metro-backend" />
+                  <span>Key Project Highlights</span>
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {station.stats.map((st, idx) => (
                     <div
                       key={idx}
-                      className="p-2.5 rounded bg-zinc-900 border border-zinc-800 flex flex-col justify-center"
+                      className="p-3 rounded-xl bg-white border border-[#DDD6C9] flex flex-col justify-center shadow-paper-card"
                     >
-                      <span className="text-[10px] text-zinc-400 uppercase font-mono">{st.label}</span>
-                      <span className="text-xs sm:text-sm font-black text-white tracking-tight mt-0.5">
+                      <span className="text-[10px] text-ink-muted font-semibold uppercase">{st.label}</span>
+                      <span className="text-xs sm:text-sm font-extrabold text-ink-primary tracking-tight mt-0.5">
                         {st.value}
                       </span>
                     </div>
@@ -157,39 +157,37 @@ export default function StationInspector({
             {/* Architecture Highlights */}
             {station.architecture && (
               <div>
-                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-2.5">
-                  System Architecture & Implementation
+                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2.5">
+                  Architecture & What I Built
                 </h4>
                 <div className="space-y-2">
                   {station.architecture.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-lg bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-300 flex items-start gap-2.5"
+                      className="p-3.5 rounded-xl bg-white border border-[#DDD6C9] text-xs sm:text-sm text-ink-secondary flex items-start gap-2.5 shadow-paper-card leading-relaxed"
                     >
-                      <span className="w-4 h-4 rounded bg-metro-backend/20 text-metro-backend border border-metro-backend/30 flex items-center justify-center font-mono font-bold text-[10px] shrink-0 mt-0.5">
-                        {idx + 1}
-                      </span>
-                      <span className="leading-relaxed">{item}</span>
+                      <CheckCircle2 className="w-4 h-4 text-metro-backend shrink-0 mt-0.5" />
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Education Coursework (if origin terminus) */}
+            {/* Education Coursework */}
             {station.details?.coursework && (
               <div>
-                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center gap-1.5">
-                  <GraduationCap className="w-3.5 h-3.5 text-metro-yellow" />
-                  <span>Core Academic Disciplines</span>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2.5 flex items-center gap-1.5">
+                  <GraduationCap className="w-4 h-4 text-metro-backend" />
+                  <span>Core Computer Science Disciplines</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {station.details.coursework.map((course, idx) => (
                     <div
                       key={idx}
-                      className="p-2.5 rounded bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 flex items-center gap-2"
+                      className="p-2.5 rounded-lg bg-white border border-[#DDD6C9] text-xs text-ink-secondary flex items-center gap-2 shadow-paper-card"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-metro-yellow"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-metro-backend"></span>
                       <span>{course}</span>
                     </div>
                   ))}
@@ -200,14 +198,14 @@ export default function StationInspector({
             {/* Tech Stack Pills */}
             {station.techStack && (
               <div>
-                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-2">
-                  Station Technology Stack
+                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2">
+                  Technologies Used
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {station.techStack.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded bg-zinc-800/90 text-zinc-200 border border-zinc-700 text-xs font-mono font-semibold"
+                      className="px-2.5 py-1 rounded-lg bg-white text-ink-secondary border border-[#DDD6C9] text-xs font-medium shadow-paper-card"
                     >
                       {tech}
                     </span>
@@ -220,25 +218,25 @@ export default function StationInspector({
           /* Code Snippet Viewer */
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-zinc-400">Core Architecture Logic</span>
+              <span className="text-xs font-semibold text-ink-muted">Implementation Code Snippet</span>
               <button
                 onClick={handleCopyCode}
-                className="flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-mono transition"
+                className="flex items-center gap-1 px-3 py-1 rounded-lg bg-white hover:bg-[#F4EFE6] text-ink-primary text-xs font-semibold border border-[#DDD6C9] shadow-sm transition"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-emerald-600">Copied</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Copy Snippet</span>
+                    <span>Copy Code</span>
                   </>
                 )}
               </button>
             </div>
-            <pre className="p-4 rounded-lg bg-black text-emerald-400 font-mono text-xs overflow-x-auto border border-zinc-800 leading-relaxed shadow-inner">
+            <pre className="p-4 rounded-xl bg-[#1E222B] text-emerald-300 font-mono text-xs overflow-x-auto border border-[#2D3340] leading-relaxed shadow-md">
               <code>{station.codeSnippet}</code>
             </pre>
           </div>
@@ -246,11 +244,11 @@ export default function StationInspector({
       </div>
 
       {/* Bottom Route Navigation Bar */}
-      <div className="p-3.5 bg-black border-t border-zinc-800 flex items-center justify-between gap-2">
+      <div className="p-4 bg-white border-t border-[#DDD6C9] flex items-center justify-between gap-2">
         {prevStation ? (
           <button
             onClick={() => onSelectStation(prevStation.id)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-xs font-semibold text-zinc-300 border border-zinc-700 transition truncate max-w-[48%]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F4EFE6] hover:bg-[#EAE4D9] text-xs font-semibold text-ink-primary border border-[#DDD6C9] transition truncate max-w-[48%]"
           >
             <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">Prev: {prevStation.shortName}</span>
@@ -260,7 +258,7 @@ export default function StationInspector({
         {nextStation && (
           <button
             onClick={() => onSelectStation(nextStation.id)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-xs font-semibold text-zinc-300 border border-zinc-700 transition truncate max-w-[48%]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F4EFE6] hover:bg-[#EAE4D9] text-xs font-semibold text-ink-primary border border-[#DDD6C9] transition truncate max-w-[48%]"
           >
             <span className="truncate">Next: {nextStation.shortName}</span>
             <ArrowRight className="w-3.5 h-3.5 shrink-0" />

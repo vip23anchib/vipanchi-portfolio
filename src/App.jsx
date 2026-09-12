@@ -7,14 +7,14 @@ import StationInspector from './components/transit/StationInspector';
 import TransitLegend from './components/transit/TransitLegend';
 import TransitAboutModal from './components/transit/TransitAboutModal';
 import TransitContactModal from './components/transit/TransitContactModal';
-import { TRANSIT_STATIONS, TRANSIT_LINES } from './data/transitData';
+import { TRANSIT_STATIONS } from './data/transitData';
 import { portfolioData } from './data/portfolioData';
-import { Train, Mail, Download, MapPin, Code2, Sparkles, Send } from 'lucide-react';
+import { Mail, Download, Sparkles, MapPin } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from './components/Icons';
 
 export default function App() {
   const [activeView, setActiveView] = useState('map'); // 'map' | 'list'
-  const [selectedStationId, setSelectedStationId] = useState('ayusetu'); // Default focus on Central Grand Junction
+  const [selectedStationId, setSelectedStationId] = useState('ayusetu'); // Default focus on Central Project
   const [activeLineFilter, setActiveLineFilter] = useState(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -22,9 +22,9 @@ export default function App() {
   const selectedStation = TRANSIT_STATIONS.find((s) => s.id === selectedStationId);
 
   return (
-    <div className="min-h-screen bg-[#0C0E14] text-zinc-100 flex flex-col font-sans selection:bg-metro-yellow selection:text-black">
+    <div className="min-h-screen bg-[#FAF8F4] text-ink-primary flex flex-col font-sans selection:bg-metro-backend selection:text-white">
       
-      {/* 1. Master Transit Vignelli Header */}
+      {/* 1. Header Navigation */}
       <TransitHeader
         activeView={activeView}
         setActiveView={setActiveView}
@@ -36,33 +36,43 @@ export default function App() {
         setActiveLineFilter={setActiveLineFilter}
       />
 
-      {/* 2. Main Transit Operations Canvas */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-5 flex flex-col gap-6">
+      {/* 2. Main Content */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
         
-        {/* System Broadcast Strip */}
-        <div className="p-3.5 rounded-lg bg-zinc-900/90 border-l-4 border-metro-yellow border border-zinc-800 flex flex-wrap items-center justify-between gap-3 shadow-md">
-          <div className="flex items-center gap-2.5">
-            <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-            <div>
-              <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                NETWORK ADVISORY:
-              </span>{' '}
-              <span className="text-xs text-zinc-300 font-sans">
-                Interactive Metro Network Map online. Click any station or track to inspect system architecture and telemetry specs.
-              </span>
+        {/* Intro Strip (Natural Human Introduction) */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+              <h1 className="text-base sm:text-lg font-extrabold text-ink-primary tracking-tight font-sans">
+                Backend Architecture, Relational Databases & AI Pipelines
+              </h1>
             </div>
+            <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed font-sans">
+              Welcome to my portfolio! Explore my projects, internships, and technical skills mapped as an interactive schematic below. Click on any stop to inspect architecture and code.
+            </p>
           </div>
 
-          <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
-            <span className="hidden sm:inline">100K+ TXNS ANALYZED</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">31 AUTOMATED TESTS</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="text-metro-yellow font-bold">VIT BHOPAL 9.04 CGPA</span>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={() => setIsAboutOpen(true)}
+              className="px-3.5 py-1.5 rounded-lg bg-[#F4EFE6] hover:bg-[#EAE4D9] text-ink-primary text-xs font-bold transition border border-[#DDD6C9]"
+            >
+              About Me
+            </button>
+            <a
+              href="/Barman_Vipanchi_Resume_10-09-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-metro-backend hover:bg-[#154E8C] text-white text-xs font-bold transition shadow-sm"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Resume</span>
+            </a>
           </div>
         </div>
 
-        {/* Dynamic View Rendering */}
+        {/* Dynamic View (Map vs List) */}
         {activeView === 'map' ? (
           <div className="space-y-6">
             
@@ -75,7 +85,7 @@ export default function App() {
                 setActiveLineFilter={setActiveLineFilter}
               />
 
-              {/* Floating Legend on Desktop Map */}
+              {/* Floating Skills Key / Legend */}
               <div className="absolute bottom-4 right-4 z-20 pointer-events-auto">
                 <TransitLegend
                   activeLineFilter={activeLineFilter}
@@ -85,7 +95,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Mobile Viewport: In-Car Vertical Line Strip Schematic */}
+            {/* Mobile Viewport: Single-Line Vertical Schematic */}
             <div className="block md:hidden space-y-6">
               <VerticalStripMap
                 selectedStationId={selectedStationId}
@@ -102,7 +112,7 @@ export default function App() {
 
           </div>
         ) : (
-          /* Accessibility Fallback: Line Directory Table / Cards */
+          /* Recruiter List View */
           <ListView
             onSelectStation={(id) => setSelectedStationId(id)}
             activeLineFilter={activeLineFilter}
@@ -112,7 +122,7 @@ export default function App() {
 
       </main>
 
-      {/* 3. Slide-In Station Ticket Inspector Card */}
+      {/* 3. Slide-In Station Detail Inspector Card */}
       {selectedStation && (
         <StationInspector
           station={selectedStation}
@@ -132,55 +142,51 @@ export default function App() {
         onClose={() => setIsContactOpen(false)}
       />
 
-      {/* 5. Transit Control Footer */}
-      <footer className="w-full bg-black border-t border-zinc-800 mt-auto py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+      {/* 5. Footer */}
+      <footer className="w-full bg-white border-t border-[#DDD6C9] mt-auto py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted">
           
           <div className="flex items-center gap-2">
-            <Train className="w-4 h-4 text-metro-yellow" />
-            <span className="font-bold text-white uppercase">Vipanchi Barman Transit Network</span>
+            <span className="font-bold text-ink-primary">Vipanchi Barman</span>
             <span>•</span>
-            <span>Bhopal / Hyderabad / Delhi</span>
+            <span>B.Tech CSE (9.04 CGPA), VIT Bhopal</span>
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <a
               href={portfolioData.personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition"
-              title="GitHub"
+              className="hover:text-ink-primary font-semibold transition flex items-center gap-1"
             >
-              GitHub
+              <GithubIcon className="w-3.5 h-3.5" />
+              <span>GitHub</span>
             </a>
-            <span>•</span>
             <a
               href={portfolioData.personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition"
-              title="LinkedIn"
+              className="hover:text-ink-primary font-semibold transition flex items-center gap-1"
             >
-              LinkedIn
+              <LinkedinIcon className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
             </a>
-            <span>•</span>
             <a
               href={portfolioData.personal.leetcode}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition"
-              title="LeetCode"
+              className="hover:text-ink-primary font-semibold transition flex items-center gap-1"
             >
-              LeetCode
+              <LeetcodeIcon className="w-3.5 h-3.5" />
+              <span>LeetCode</span>
             </a>
-            <span>•</span>
             <a
               href={`mailto:${portfolioData.personal.email}`}
-              className="hover:text-metro-yellow transition"
-              title="Email"
+              className="hover:text-metro-backend font-semibold transition flex items-center gap-1"
             >
-              barman23vipanchi@gmail.com
+              <Mail className="w-3.5 h-3.5" />
+              <span>{portfolioData.personal.email}</span>
             </a>
           </div>
 

@@ -8,41 +8,51 @@ export default {
   theme: {
     extend: {
       colors: {
-        transit: {
-          dark: '#0C0E14',
-          board: '#12151F',
-          card: '#181C28',
-          hover: '#202636',
-          border: '#283044',
-          muted: '#8B949E',
-          light: '#F3F4F6',
+        paper: {
+          bg: '#FAF8F4',
+          card: '#FFFFFF',
+          warm: '#F4EFE6',
+          muted: '#EAE4D9',
+          border: '#DDD6C9',
+          dark: '#1E222B',
+        },
+        ink: {
+          primary: '#1A1E29',
+          secondary: '#4A5262',
+          muted: '#768092',
+          light: '#A0A9B8',
         },
         metro: {
-          backend: '#0057B8',   // Vignelli Blue
-          data: '#FF6319',      // Subway Orange
-          ml: '#80397B',        // Metropolitan Purple
-          frontend: '#00933C',  // Transit Green
-          yellow: '#FFD100',    // Signage Yellow
-          amber: '#F59E0B',
-          red: '#EE352E',
+          backend: '#1B5FA8',   // Classic Transit Blue
+          data: '#E05A2B',      // Warm Transit Coral/Orange
+          ml: '#7E347D',        // Deep Transit Violet
+          frontend: '#1B824C',  // Rich Forest Transit Green
+          gold: '#D99B16',      // Warm Station Gold
+          accent: '#C73E3A',    // Transit Crimson
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
+      boxShadow: {
+        'paper': '0 4px 20px -2px rgba(30, 34, 43, 0.08), 0 2px 6px -1px rgba(30, 34, 43, 0.04)',
+        'paper-lg': '0 12px 36px -4px rgba(30, 34, 43, 0.12), 0 4px 12px -2px rgba(30, 34, 43, 0.06)',
+        'paper-card': '0 2px 8px -1px rgba(30, 34, 43, 0.06), 0 1px 3px rgba(30, 34, 43, 0.04)',
+        'tactile': '0 8px 24px -3px rgba(30, 34, 43, 0.15)',
+      },
       animation: {
-        'station-pulse': 'stationPulse 2s ease-in-out infinite',
-        'train-pulse': 'trainPulse 1.5s ease-in-out infinite',
+        'station-pulse': 'stationPulse 2.5s ease-in-out infinite',
+        'pin-bounce': 'pinBounce 2s ease-in-out infinite',
       },
       keyframes: {
         stationPulse: {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
-          '50%': { transform: 'scale(1.35)', opacity: '0.6' },
+          '50%': { transform: 'scale(1.25)', opacity: '0.6' },
         },
-        trainPulse: {
-          '0%, 100%': { filter: 'drop-shadow(0 0 6px rgba(255, 209, 0, 0.8))' },
-          '50%': { filter: 'drop-shadow(0 0 16px rgba(255, 209, 0, 1))' },
+        pinBounce: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-4px)' },
         }
       }
     },

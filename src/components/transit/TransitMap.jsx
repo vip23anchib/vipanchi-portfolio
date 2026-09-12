@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TRANSIT_LINES,
@@ -8,7 +8,7 @@ import {
   SVG_SPUR_PATHS,
   TRAIN_ANIMATION_ROUTE
 } from '../../data/transitData';
-import { ZoomIn, ZoomOut, RotateCcw, Award, Play, Train, Sparkles } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Play, Award, MapPin, Compass } from 'lucide-react';
 
 export default function TransitMap({
   selectedStationId,
@@ -41,7 +41,7 @@ export default function TransitMap({
           }
           return prev + 1;
         });
-      }, 750);
+      }, 700);
     }
     return () => clearInterval(interval);
   }, [isTrainRunning]);
@@ -54,13 +54,13 @@ export default function TransitMap({
   // When a station is selected, smoothly pan the viewBox toward it
   useEffect(() => {
     if (currentStationTarget) {
-      const targetX = Math.max(0, Math.min(600, currentStationTarget.x - 300));
+      const targetX = Math.max(0, Math.min(500, currentStationTarget.x - 350));
       const targetY = Math.max(0, Math.min(300, currentStationTarget.y - 250));
       setViewBox({
         x: targetX,
         y: targetY,
-        width: 800,
-        height: 500
+        width: 850,
+        height: 530
       });
     }
   }, [selectedStationId]);
@@ -87,97 +87,119 @@ export default function TransitMap({
     setViewBox(defaultViewBox);
   };
 
-  // Train coordinates interpolation
   const currentTrainCoord = TRAIN_ANIMATION_ROUTE[trainProgress] || TRAIN_ANIMATION_ROUTE[0];
 
   return (
-    <div className="relative w-full h-[650px] lg:h-[720px] bg-[#0A0C12] transit-grid-bg rounded-xl border border-zinc-800 shadow-2xl overflow-hidden select-none flex items-center justify-center">
+    <div className="relative w-full h-[650px] lg:h-[730px] map-paper-bg map-crease-overlay rounded-2xl border border-[#DDD6C9] shadow-paper-lg overflow-hidden select-none flex items-center justify-center">
       
-      {/* Top Left System Info HUD */}
-      <div className="absolute top-3.5 left-4 z-20 flex items-center gap-2 pointer-events-auto">
-        <div className="px-3 py-1.5 rounded-md bg-black/90 border border-zinc-700/80 text-xs font-mono text-zinc-300 shadow-lg flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-metro-yellow animate-ping"></span>
-          <span className="font-bold text-white uppercase tracking-wider text-[11px]">OCTOLINEAR SCHEMATIC</span>
-          <span className="text-zinc-500">•</span>
-          <span className="text-[10.5px] text-zinc-400">1200 × 750px</span>
+      {/* Top Left: Map Title Cartouche & Route Playback */}
+      <div className="absolute top-4 left-4 z-20 flex items-center gap-2.5 pointer-events-auto">
+        <div className="px-4 py-2 rounded-xl bg-white/95 border border-[#DDD6C9] shadow-paper flex items-center gap-3">
+          <div className="w-7 h-7 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] flex items-center justify-center text-ink-primary shadow-sm">
+            <Compass className="w-4 h-4 text-metro-backend" />
+          </div>
+          <div>
+            <div className="font-extrabold text-xs text-ink-primary tracking-tight font-sans">
+              Interactive Engineering Map
+            </div>
+            <div className="text-[11px] text-ink-muted">
+              Click stations to explore projects & internships
+            </div>
+          </div>
         </div>
 
-        {/* Train Re-run button */}
         <button
           onClick={restartTrain}
-          title="Re-run route simulation train"
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-mono transition shadow-lg"
+          title="Re-play route tour"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/95 hover:bg-[#F4EFE6] text-ink-primary border border-[#DDD6C9] text-xs font-semibold shadow-paper transition"
         >
-          <Play className="w-3 h-3 text-metro-yellow" />
-          <span className="hidden sm:inline text-[11px]">Trace Route</span>
+          <Play className="w-3.5 h-3.5 text-metro-data fill-metro-data" />
+          <span className="hidden sm:inline">Play Tour</span>
         </button>
       </div>
 
-      {/* Top Right Zoom & Pan Controls */}
-      <div className="absolute top-3.5 right-4 z-20 flex items-center gap-1.5 bg-black/90 p-1 rounded-md border border-zinc-700/80 shadow-lg">
+      {/* Top Right: Zoom & Reset Controls */}
+      <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-white/95 p-1 rounded-xl border border-[#DDD6C9] shadow-paper">
         <button
           onClick={handleZoomIn}
           title="Zoom In"
-          className="p-1.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-white transition"
+          className="p-2 rounded-lg hover:bg-[#F4EFE6] text-ink-secondary hover:text-ink-primary transition"
         >
           <ZoomIn className="w-4 h-4" />
         </button>
         <button
           onClick={handleZoomOut}
           title="Zoom Out"
-          className="p-1.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-white transition"
+          className="p-2 rounded-lg hover:bg-[#F4EFE6] text-ink-secondary hover:text-ink-primary transition"
         >
           <ZoomOut className="w-4 h-4" />
         </button>
         <button
           onClick={handleResetView}
-          title="Reset Whole System Map"
-          className="p-1.5 rounded hover:bg-zinc-800 text-zinc-300 hover:text-white transition flex items-center gap-1 text-[11px] font-mono px-2"
+          title="Reset Whole Map View"
+          className="p-2 rounded-lg hover:bg-[#F4EFE6] text-ink-secondary hover:text-ink-primary transition flex items-center gap-1 text-xs font-semibold px-2.5"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Reset</span>
         </button>
       </div>
 
-      {/* Main Interactive SVG Canvas */}
+      {/* Main Printed Interactive SVG Canvas */}
       <motion.svg
         viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
         className="w-full h-full cursor-grab active:cursor-grabbing transition-all duration-700 ease-out"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
-          {/* Subtle line glow filters */}
-          <filter id="lineGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
+          {/* Soft natural drop shadow for printed transit lines */}
+          <filter id="softLineShadow" x="-10%" y="-10%" width="130%" height="130%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" floodColor="#2D2418" floodOpacity="0.12" />
           </filter>
 
-          {/* Pulse gradient for Terminus */}
-          <radialGradient id="terminusPulse" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFD100" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#FFD100" stopOpacity="0" />
-          </radialGradient>
+          {/* Marker drop shadow */}
+          <filter id="markerShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#2D2418" floodOpacity="0.18" />
+          </filter>
         </defs>
 
-        {/* 1. Landmark Express Spur Tracks (Dashed Lines) */}
-        <g id="spur-tracks" className="opacity-70">
+        {/* 1. Compass Rose Illustration in upper corner */}
+        <g transform="translate(1080, 80)" className="opacity-40 pointer-events-none">
+          <circle r="30" fill="none" stroke="#B5ADA0" strokeWidth="1" strokeDasharray="3,3" />
+          <polygon points="0,-26 6,-8 0,-12 -6,-8" fill="#1B5FA8" />
+          <polygon points="0,26 6,8 0,12 -6,8" fill="#B5ADA0" />
+          <polygon points="-26,0 -8,-6 -12,0 -8,6" fill="#B5ADA0" />
+          <polygon points="26,0 8,-6 12,0 8,6" fill="#B5ADA0" />
+          <text x="0" y="-30" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1B5FA8">N</text>
+        </g>
+
+        {/* 2. Scale Bar Illustration in bottom corner */}
+        <g transform="translate(80, 700)" className="opacity-50 pointer-events-none">
+          <line x1="0" y1="0" x2="160" y2="0" stroke="#768092" strokeWidth="2" />
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="#768092" strokeWidth="2" />
+          <line x1="80" y1="-3" x2="80" y2="3" stroke="#768092" strokeWidth="1.5" />
+          <line x1="160" y1="-4" x2="160" y2="4" stroke="#768092" strokeWidth="2" />
+          <text x="80" y="15" textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#768092" fontFamily="sans-serif">
+            Project Progression & Maturity Scale
+          </text>
+        </g>
+
+        {/* 3. Express Landmark Spur Tracks */}
+        <g id="spur-tracks">
           {SVG_SPUR_PATHS.map((spur) => (
             <path
               key={spur.id}
               d={spur.d}
               fill="none"
-              stroke="#64748B"
+              stroke="#A0A9B8"
               strokeWidth="2.5"
               strokeDasharray="5,5"
+              strokeLinecap="round"
               className="transition-all duration-300"
             />
           ))}
         </g>
 
-        {/* 2. Main Subway Tracks (Drawn with animated SVG strokes) */}
+        {/* 4. Main Transit Lines (Drawn with soft rounded curves & drop shadow) */}
         <g id="metro-tracks">
           {Object.entries(SVG_TRACK_PATHS).map(([lineKey, track]) => {
             const isHovered = hoveredLine === lineKey;
@@ -190,15 +212,15 @@ export default function TransitMap({
                 d={track.d}
                 fill="none"
                 stroke={track.color}
-                strokeWidth={isHovered || isFiltered ? "11" : "8"}
+                strokeWidth={isHovered || isFiltered ? "10" : "7.5"}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                filter="url(#softLineShadow)"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.8, ease: "easeInOut" }}
-                opacity={isDimmed ? 0.15 : 1}
-                filter={isHovered || isFiltered ? "url(#lineGlow)" : undefined}
-                className="transit-track cursor-pointer"
+                transition={{ duration: 1.6, ease: "easeOut" }}
+                opacity={isDimmed ? 0.2 : 1}
+                className="transit-track-path cursor-pointer"
                 onMouseEnter={() => setHoveredLine(lineKey)}
                 onMouseLeave={() => setHoveredLine(null)}
                 onClick={() => setActiveLineFilter(activeLineFilter === lineKey ? null : lineKey)}
@@ -207,70 +229,64 @@ export default function TransitMap({
           })}
         </g>
 
-        {/* 3. Landmark Achievement Diamond Nodes */}
+        {/* 5. Landmark Achievement Markers */}
         <g id="landmarks">
-          {LANDMARK_ACHIEVEMENTS.map((lm) => {
-            const isHovered = hoveredLandmark === lm.id;
-            return (
-              <g
-                key={lm.id}
-                transform={`translate(${lm.x}, ${lm.y})`}
-                className="cursor-pointer group"
-                onMouseEnter={() => setHoveredLandmark(lm.id)}
-                onMouseLeave={() => setHoveredLandmark(null)}
+          {LANDMARK_ACHIEVEMENTS.map((lm) => (
+            <g
+              key={lm.id}
+              transform={`translate(${lm.x}, ${lm.y})`}
+              className="cursor-pointer group"
+              onMouseEnter={() => setHoveredLandmark(lm.id)}
+              onMouseLeave={() => setHoveredLandmark(null)}
+            >
+              {/* Soft gold badge */}
+              <circle
+                r="13"
+                fill="#F4EFE6"
+                stroke="#D99B16"
+                strokeWidth="2.5"
+                filter="url(#markerShadow)"
+                className="transition-transform duration-200 group-hover:scale-125"
+              />
+              <text
+                textAnchor="middle"
+                dy="4"
+                fill="#99680A"
+                fontSize="11"
+                fontWeight="bold"
               >
-                {/* Diamond Shape */}
-                <rect
-                  x="-12"
-                  y="-12"
-                  width="24"
-                  height="24"
-                  transform="rotate(45)"
-                  fill="#FFD100"
-                  stroke="#000000"
-                  strokeWidth="3"
-                  className="transition-transform duration-200 group-hover:scale-125"
-                />
-                <text
-                  textAnchor="middle"
-                  dy="3.5"
-                  fill="#000000"
-                  fontSize="8"
-                  fontWeight="900"
-                  fontFamily="sans-serif"
-                >
-                  ★
-                </text>
+                ★
+              </text>
 
-                {/* Landmark Label */}
-                <text
-                  x="0"
-                  y="24"
-                  textAnchor="middle"
-                  fill="#F3F4F6"
-                  fontSize="11"
-                  fontWeight="700"
-                  fontFamily="sans-serif"
-                  className="drop-shadow-md"
-                >
-                  {lm.name}
-                </text>
-                <text
-                  x="0"
-                  y="36"
-                  textAnchor="middle"
-                  fill="#9CA3AF"
-                  fontSize="9"
-                  fontFamily="monospace"
-                >
-                  [{lm.badge}]
-                </text>
-              </g>
-            );
-          })}
+              {/* Landmark Label */}
+              <text
+                x="0"
+                y="24"
+                textAnchor="middle"
+                fill="#1A1E29"
+                fontSize="11.5"
+                fontWeight="700"
+                fontFamily="sans-serif"
+                className="drop-shadow-sm"
+              >
+                {lm.name}
+              </text>
+              <text
+                x="0"
+                y="36"
+                textAnchor="middle"
+                fill="#626875"
+                fontSize="9.5"
+                fontWeight="500"
+                fontFamily="sans-serif"
+              >
+                {lm.badge}
+              </text>
+            </g>
+          ))}
         </g>
 
-        {/* 4. Subway Stations (Nodes, Multi-Rings, Terminus) */}
+        {/* 6. Stations & Interchanges */}
         <g id="stations">
           {TRANSIT_STATIONS.map((station) => {
             const isSelected = selectedStationId === station.id;
@@ -279,7 +295,6 @@ export default function TransitMap({
             const isOrigin = station.type === 'terminus_origin';
             const isDestination = station.type === 'terminus_destination';
 
-            // Check if station belongs to the active line filter
             const matchesFilter = !activeLineFilter || station.lines.includes(activeLineFilter);
             const opacity = matchesFilter ? 1 : 0.25;
 
@@ -288,37 +303,47 @@ export default function TransitMap({
                 key={station.id}
                 transform={`translate(${station.x}, ${station.y})`}
                 opacity={opacity}
-                className="station-node group"
+                className="station-marker group"
                 onClick={() => onSelectStation(station.id)}
                 onMouseEnter={() => setHoveredStation(station.id)}
                 onMouseLeave={() => setHoveredStation(null)}
               >
-                {/* Pulse Ring on active selection / terminus */}
-                {(isSelected || isDestination) && (
+                {/* Active Selection Pulse Ring */}
+                {isSelected && (
                   <circle
-                    r="24"
+                    r="22"
                     fill="none"
-                    stroke="#FFD100"
+                    stroke="#1B5FA8"
                     strokeWidth="2"
-                    opacity="0.8"
+                    opacity="0.6"
                     className="animate-ping"
                   />
                 )}
 
-                {/* Grand Junction Triple-Ring (AyuSetu) */}
+                {/* You Are Here Pin on Open to Roles */}
+                {isDestination && (
+                  <g transform="translate(0, -32)" className="animate-bounce pointer-events-none">
+                    <rect x="-42" y="-18" width="84" height="20" rx="10" fill="#1B824C" filter="url(#markerShadow)" />
+                    <text x="0" y="-4" textAnchor="middle" fill="#FFFFFF" fontSize="9.5" fontWeight="bold" fontFamily="sans-serif">
+                      📍 Open to Roles
+                    </text>
+                  </g>
+                )}
+
+                {/* Grand Junction Concentric Multi-Ring (AyuSetu) */}
                 {station.type === 'grand_junction' && (
                   <>
-                    <circle r="18" fill="#141722" stroke="#FFFFFF" strokeWidth="3" />
-                    <circle r="12" fill="#FF6319" stroke="#0057B8" strokeWidth="2.5" />
-                    <circle r="6" fill="#80397B" />
+                    <circle r="16" fill="#FFFFFF" stroke="#1A1E29" strokeWidth="2.5" filter="url(#markerShadow)" />
+                    <circle r="11" fill="#FFFFFF" stroke="#E05A2B" strokeWidth="3" />
+                    <circle r="5" fill="#1B5FA8" />
                   </>
                 )}
 
-                {/* Interchange Hub Multi-Ring (Meslova / Saurabhi) */}
+                {/* Interchange Concentric Multi-Ring (Meslova / Saurabhi) */}
                 {station.type === 'interchange' && (
                   <>
-                    <circle r="15" fill="#141722" stroke="#FFFFFF" strokeWidth="3.5" />
-                    <circle r="8" fill="#0057B8" stroke="#FF6319" strokeWidth="2" />
+                    <circle r="14" fill="#FFFFFF" stroke="#1A1E29" strokeWidth="2.5" filter="url(#markerShadow)" />
+                    <circle r="8" fill="#FFFFFF" stroke="#1B5FA8" strokeWidth="3" />
                   </>
                 )}
 
@@ -326,68 +351,72 @@ export default function TransitMap({
                 {(isOrigin || isDestination) && (
                   <>
                     <rect
-                      x="-14"
-                      y="-14"
-                      width="28"
-                      height="28"
+                      x="-13"
+                      y="-13"
+                      width="26"
+                      height="26"
                       rx="6"
-                      fill="#FFD100"
-                      stroke="#000000"
-                      strokeWidth="3.5"
+                      fill="#FFFFFF"
+                      stroke="#1A1E29"
+                      strokeWidth="2.5"
+                      filter="url(#markerShadow)"
                     />
-                    <circle r="5" fill="#000000" />
+                    <circle r="5" fill={isDestination ? '#1B824C' : '#1B5FA8'} />
                   </>
                 )}
 
-                {/* Regular Junction Station Marker */}
+                {/* Regular Project Station (Clean White Circle with Thin Dark Ring) */}
                 {station.type === 'junction' && (
                   <circle
-                    r="9"
+                    r="8.5"
                     fill="#FFFFFF"
-                    stroke="#000000"
-                    strokeWidth="3"
+                    stroke="#1A1E29"
+                    strokeWidth="2.5"
+                    filter="url(#markerShadow)"
                     className="transition-transform duration-200 group-hover:scale-125"
                   />
                 )}
 
-                {/* Local Station Marker */}
+                {/* Local Station */}
                 {station.type === 'station' && (
                   <circle
                     r="6.5"
                     fill="#FFFFFF"
-                    stroke="#80397B"
-                    strokeWidth="2.5"
+                    stroke="#7E347D"
+                    strokeWidth="2"
+                    filter="url(#markerShadow)"
                     className="transition-transform duration-200 group-hover:scale-125"
                   />
                 )}
 
-                {/* Station Label Typography (Vignelli / Helvetica Style) */}
+                {/* Station Label Typography (Humanist Sans-Serif) */}
                 <text
-                  x={station.labelPos === 'right' ? 22 : station.labelPos === 'left' ? -22 : 0}
-                  y={station.labelPos === 'top' ? -20 : station.labelPos === 'bottom' ? 26 : 5}
+                  x={station.labelPos === 'right' ? 20 : station.labelPos === 'left' ? -20 : 0}
+                  y={station.labelPos === 'top' ? -18 : station.labelPos === 'bottom' ? 24 : 5}
                   textAnchor={
                     station.labelPos === 'right' ? 'start' : station.labelPos === 'left' ? 'end' : 'middle'
                   }
-                  fill={isSelected ? '#FFD100' : '#FFFFFF'}
-                  fontSize={isInterchange || isOrigin || isDestination ? '13' : '11.5'}
-                  fontWeight="800"
-                  fontFamily="sans-serif"
-                  className="station-label drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                  fill={isSelected ? '#1B5FA8' : '#1A1E29'}
+                  fontSize={isInterchange || isOrigin || isDestination ? '13' : '12'}
+                  fontWeight={isSelected || isInterchange ? '800' : '700'}
+                  fontFamily="Plus Jakarta Sans, sans-serif"
+                  className="map-typography"
                 >
                   {station.shortName}
                 </text>
 
-                {/* Subtitle / Tech pill under label */}
+                {/* Subtitle / Category pill */}
                 <text
-                  x={station.labelPos === 'right' ? 22 : station.labelPos === 'left' ? -22 : 0}
-                  y={station.labelPos === 'top' ? -32 : station.labelPos === 'bottom' ? 38 : 18}
+                  x={station.labelPos === 'right' ? 20 : station.labelPos === 'left' ? -20 : 0}
+                  y={station.labelPos === 'top' ? -30 : station.labelPos === 'bottom' ? 36 : 18}
                   textAnchor={
                     station.labelPos === 'right' ? 'start' : station.labelPos === 'left' ? 'end' : 'middle'
                   }
-                  fill="#94A3B8"
-                  fontSize="9"
-                  fontFamily="monospace"
-                  className="station-label drop-shadow"
+                  fill="#626875"
+                  fontSize="9.5"
+                  fontWeight="500"
+                  fontFamily="Plus Jakarta Sans, sans-serif"
+                  className="map-typography"
                 >
                   {station.category}
                 </text>
@@ -396,22 +425,14 @@ export default function TransitMap({
           })}
         </g>
 
-        {/* 5. Animated Simulation Train / Car */}
+        {/* 7. Animated Train Tour Marker */}
         <g
           transform={`translate(${currentTrainCoord.x}, ${currentTrainCoord.y})`}
           className="transition-all duration-700 ease-out pointer-events-none"
         >
-          <circle r="14" fill="#FFD100" opacity="0.4" className="animate-ping" />
-          <circle r="10" fill="#FFD100" stroke="#000000" strokeWidth="2.5" />
-          <text
-            textAnchor="middle"
-            dy="3"
-            fontSize="8"
-            fontWeight="900"
-            fill="#000000"
-          >
-            ●
-          </text>
+          <circle r="12" fill="#D99B16" opacity="0.35" className="animate-ping" />
+          <circle r="8.5" fill="#D99B16" stroke="#FFFFFF" strokeWidth="2" filter="url(#markerShadow)" />
+          <circle r="3" fill="#FFFFFF" />
         </g>
       </motion.svg>
 
@@ -419,17 +440,17 @@ export default function TransitMap({
       <AnimatePresence>
         {hoveredStation && (
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            initial={{ opacity: 0, y: 6, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 5, scale: 0.95 }}
-            className="absolute bottom-4 left-4 z-30 pointer-events-none p-3 rounded-lg bg-black/95 border-2 border-metro-yellow shadow-2xl max-w-xs text-xs"
+            exit={{ opacity: 0, y: 4, scale: 0.96 }}
+            className="absolute bottom-4 left-4 z-30 pointer-events-none p-3.5 rounded-xl bg-white border border-[#DDD6C9] shadow-paper-lg max-w-sm text-xs"
           >
             {(() => {
               const st = TRANSIT_STATIONS.find(s => s.id === hoveredStation);
               if (!st) return null;
               return (
                 <div>
-                  <div className="flex items-center gap-1.5 mb-1">
+                  <div className="flex items-center gap-1.5 mb-1.5">
                     {st.lines.map(lKey => {
                       const l = Object.values(TRANSIT_LINES).find(item => item.id === lKey);
                       return (
@@ -442,16 +463,16 @@ export default function TransitMap({
                         </span>
                       );
                     })}
-                    <span className="text-[10px] font-mono text-metro-yellow font-bold uppercase">
+                    <span className="text-[11px] font-semibold text-ink-secondary">
                       {st.category}
                     </span>
                   </div>
-                  <div className="font-extrabold text-white text-sm uppercase">{st.name}</div>
-                  <p className="text-zinc-300 text-[11px] line-clamp-2 mt-1 font-sans">
+                  <div className="font-extrabold text-ink-primary text-sm">{st.name}</div>
+                  <p className="text-ink-secondary text-xs line-clamp-2 mt-1 leading-relaxed">
                     {st.summary}
                   </p>
-                  <div className="mt-2 text-[10px] text-metro-yellow font-mono font-bold flex items-center gap-1">
-                    <span>Click station to inspect details & code</span>
+                  <div className="mt-2 text-[11px] text-metro-backend font-bold flex items-center gap-1">
+                    <span>Click to explore project details & code</span>
                     <span>→</span>
                   </div>
                 </div>
@@ -465,23 +486,23 @@ export default function TransitMap({
       <AnimatePresence>
         {hoveredLandmark && (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="absolute top-16 right-4 z-30 pointer-events-none p-3 rounded-lg bg-black/95 border-2 border-metro-yellow shadow-2xl max-w-xs text-xs"
+            exit={{ opacity: 0, y: 4 }}
+            className="absolute top-16 right-4 z-30 pointer-events-none p-3.5 rounded-xl bg-white border border-[#DDD6C9] shadow-paper-lg max-w-xs text-xs"
           >
             {(() => {
               const lm = LANDMARK_ACHIEVEMENTS.find(l => l.id === hoveredLandmark);
               if (!lm) return null;
               return (
                 <div>
-                  <div className="flex items-center gap-1 text-metro-yellow font-mono text-[10px] font-bold">
+                  <div className="flex items-center gap-1.5 text-metro-gold font-bold text-xs">
                     <Award className="w-3.5 h-3.5" />
-                    <span>EXPRESS LANDMARK // {lm.badge}</span>
+                    <span>{lm.badge}</span>
                   </div>
-                  <div className="font-extrabold text-white text-sm uppercase mt-0.5">{lm.name}</div>
-                  <div className="text-zinc-400 text-[10.5px] font-mono mt-0.5">{lm.organizer}</div>
-                  <p className="text-zinc-300 text-[11px] mt-1.5">{lm.summary}</p>
+                  <div className="font-extrabold text-ink-primary text-sm mt-0.5">{lm.name}</div>
+                  <div className="text-ink-muted text-[11px] mt-0.5">{lm.organizer}</div>
+                  <p className="text-ink-secondary text-xs mt-1.5 leading-relaxed">{lm.summary}</p>
                 </div>
               );
             })()}
