@@ -12,7 +12,7 @@ export default function AchievementsSection() {
   };
 
   return (
-    <section id="achievements" className="py-16 md:py-24 bg-[#F4EFE6]/50 border-t border-[#DDD6C9]">
+    <section id="achievements" className="py-20 md:py-28 bg-[#FAF8F4] border-t border-[#E8E2D9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
