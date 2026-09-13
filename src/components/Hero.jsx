@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Download, Mail, ArrowDown, Sparkles, MapPin, Database, Server, Cpu } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from './Icons';
 import { portfolioData } from '../data/portfolioData';
+import HeroTrainTrackScene from './HeroTrainTrackScene';
 
 // Smooth Count-Up Number Counter Component
 function AnimatedStatCounter({ value, suffix }) {
@@ -85,54 +86,8 @@ export default function Hero({ onOpenContact }) {
   return (
     <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
       
-      {/* Subtle Animated Transit Network Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
-        {/* Ambient Warm Gradient Glows */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-metro-backend/[0.04] rounded-full blur-3xl" />
-        <div className="absolute top-1/4 right-0 w-80 h-80 bg-metro-data/[0.04] rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-metro-frontend/[0.03] rounded-full blur-3xl" />
-
-        {/* Faint Metro Track Circuit Lines */}
-        <svg
-          className="w-full h-full opacity-40"
-          preserveAspectRatio="none"
-          viewBox="0 0 1440 650"
-          fill="none"
-        >
-          {/* Blue Backend Track */}
-          <path
-            d="M-50,140 C280,90 520,240 920,130 C1140,80 1320,190 1500,160"
-            stroke="#1B5FA8"
-            strokeWidth="1.8"
-            strokeDasharray="6 12"
-            className="animate-dash-flow opacity-30"
-          />
-          {/* Coral Data Track */}
-          <path
-            d="M-50,280 C320,210 650,380 1080,260 C1280,210 1390,340 1500,310"
-            stroke="#E05A2B"
-            strokeWidth="1.8"
-            strokeDasharray="8 16"
-            className="animate-dash-flow-reverse opacity-25"
-          />
-          {/* Violet ML Track */}
-          <path
-            d="M120,-30 C240,160 400,340 560,680"
-            stroke="#7E347D"
-            strokeWidth="1.4"
-            strokeDasharray="5 10"
-            className="animate-dash-flow opacity-20"
-          />
-
-          {/* Gentle pulsing transit station nodes */}
-          <circle cx="280" cy="115" r="3.5" fill="#1B5FA8" className="animate-ping opacity-25" />
-          <circle cx="280" cy="115" r="2.5" fill="#1B5FA8" className="opacity-40" />
-          <circle cx="650" cy="340" r="3.5" fill="#E05A2B" className="animate-ping opacity-25" />
-          <circle cx="650" cy="340" r="2.5" fill="#E05A2B" className="opacity-40" />
-          <circle cx="1080" cy="260" r="3.5" fill="#1B824C" className="animate-ping opacity-25" />
-          <circle cx="1080" cy="260" r="2.5" fill="#1B824C" className="opacity-40" />
-        </svg>
-      </div>
+      {/* 1. Authentic Animated Train & Track Skill Scene */}
+      <HeroTrainTrackScene />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -145,9 +100,9 @@ export default function Hero({ onOpenContact }) {
           
           {/* Status Badge */}
           <motion.div variants={itemVariants}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#DDD6C9] shadow-paper-card">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-sm border border-[#DDD6C9] shadow-paper hover:shadow-md transition-shadow">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
-              <span className="text-xs font-bold text-ink-primary">
+              <span className="text-xs font-black text-ink-primary font-sans">
                 Available for SDE & Backend Roles • 2027 Grad (9.04 CGPA)
               </span>
             </div>
@@ -156,9 +111,9 @@ export default function Hero({ onOpenContact }) {
           {/* Heading */}
           <motion.div variants={itemVariants} className="space-y-2">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-ink-primary font-sans leading-[1.1]">
-              Hi, I’m <span className="text-metro-backend underline decoration-metro-backend/30 underline-offset-8">Vipanchi Barman</span>.
+              Hi, I’m <span className="text-metro-backend underline decoration-metro-backend/40 underline-offset-8">Vipanchi Barman</span>.
             </h1>
-            <p className="text-xl sm:text-2xl font-extrabold text-ink-secondary tracking-tight">
+            <p className="text-xl sm:text-2xl font-black text-ink-secondary tracking-tight">
               Backend & Data Systems Engineer
             </p>
           </motion.div>
@@ -166,7 +121,7 @@ export default function Hero({ onOpenContact }) {
           {/* Pitch */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg text-ink-secondary leading-relaxed font-sans max-w-2xl"
+            className="text-base sm:text-lg text-ink-secondary leading-relaxed font-sans max-w-2xl font-medium"
           >
             {portfolioData.personal.tagline} Building robust, concurrency-safe services with Python, Django REST Framework, PostgreSQL row-level locks, and scalable ETL/AI workflows.
           </motion.p>
@@ -176,7 +131,7 @@ export default function Hero({ onOpenContact }) {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#network-map"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-metro-backend hover:bg-[#154E8C] text-white font-bold text-sm shadow-paper transition"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-metro-backend hover:bg-[#154E8C] text-white font-bold text-sm shadow-paper hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <ArrowDown className="w-4 h-4" />
                 <span>Explore Interactive Map</span>
@@ -186,7 +141,7 @@ export default function Hero({ onOpenContact }) {
                 href="/Barman_Vipanchi_Resume_10-09-2026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-sm border border-[#DDD6C9] shadow-paper transition"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-sm border-2 border-[#DDD6C9] hover:border-metro-backend shadow-paper hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <Download className="w-4 h-4 text-metro-backend" />
                 <span>Download Resume</span>
@@ -194,9 +149,9 @@ export default function Hero({ onOpenContact }) {
 
               <button
                 onClick={onOpenContact}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4EFE6] hover:bg-[#EAE4D9] text-ink-primary font-bold text-sm border border-[#DDD6C9] transition"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4EFE6] hover:bg-[#EAE4D9] text-ink-primary font-bold text-sm border border-[#DDD6C9] hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow transition-all"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 text-metro-backend" />
                 <span>Get in Touch</span>
               </button>
             </div>
@@ -207,7 +162,7 @@ export default function Hero({ onOpenContact }) {
                 href={portfolioData.personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] shadow-paper-card hover:border-metro-backend/40 transition"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] hover:border-ink-primary shadow-paper hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
                 <GithubIcon className="w-4 h-4 text-ink-primary" />
                 <span>GitHub</span>
@@ -217,7 +172,7 @@ export default function Hero({ onOpenContact }) {
                 href={portfolioData.personal.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] shadow-paper-card hover:border-[#FFA116]/60 transition"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] hover:border-[#FFA116] shadow-paper hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
                 <LeetcodeIcon className="w-4 h-4 text-[#FFA116]" />
                 <span>LeetCode</span>
@@ -227,7 +182,7 @@ export default function Hero({ onOpenContact }) {
                 href={portfolioData.personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] shadow-paper-card hover:border-[#0A66C2]/60 transition"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF8F4] text-ink-primary font-bold text-xs border border-[#DDD6C9] hover:border-[#0A66C2] shadow-paper hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
                 <LinkedinIcon className="w-4 h-4 text-[#0A66C2]" />
                 <span>LinkedIn</span>
@@ -248,9 +203,9 @@ export default function Hero({ onOpenContact }) {
           {portfolioData.personal.stats.map((stat, idx) => (
             <div
               key={idx}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex flex-col justify-center transition-transform duration-200 hover:-translate-y-0.5"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card hover:shadow-paper-lg flex flex-col justify-center transition-all duration-300 hover:-translate-y-1.5 hover:border-metro-backend/40 cursor-default group"
             >
-              <div className="text-2xl sm:text-3xl font-black text-ink-primary font-sans tracking-tight">
+              <div className="text-2xl sm:text-3xl font-black text-ink-primary font-sans tracking-tight group-hover:text-metro-backend transition-colors">
                 <AnimatedStatCounter value={stat.value} />
                 <span className="text-metro-backend text-lg">{stat.suffix}</span>
               </div>
