@@ -17,7 +17,7 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-16 md:py-20 border-t border-[#DDD6C9]">
+    <section id="projects" className="py-16 md:py-24 bg-[#FAF8F4] border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -29,7 +29,7 @@ export default function ProjectsSection() {
           <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
             Featured Projects
           </h2>
-          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl font-medium">
             Production-grade systems, concurrency-safe booking engines, forensic data analytics, and LLM shortlisting tools.
           </p>
         </div>
@@ -39,35 +39,36 @@ export default function ProjectsSection() {
           {portfolioData.projects.map((project) => (
             <div
               key={project.id}
-              className={`p-6 sm:p-7 rounded-2xl bg-white border transition-all duration-200 flex flex-col justify-between shadow-paper-card hover:shadow-paper ${
-                project.featured ? 'border-[#B5ADA0] ring-1 ring-black/5' : 'border-[#DDD6C9]'
+              className={`p-6 sm:p-7 rounded-2xl bg-white border transition-all duration-300 flex flex-col justify-between shadow-paper hover:shadow-paper-lg hover:-translate-y-1.5 group ${
+                project.featured ? 'border-metro-backend/40 ring-2 ring-metro-backend/10' : 'border-[#DDD6C9]'
               }`}
             >
               <div>
-                {/* Header Badge */}
-                <div className="flex items-center justify-between gap-2 mb-3">
+                {/* Header Badge & Action Icons */}
+                <div className="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-[#EAE4D9]">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FAF8F4] text-metro-backend border border-[#DDD6C9]">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-black bg-[#FAF8F4] text-metro-backend border border-[#DDD6C9] shadow-xs">
                       {project.category}
                     </span>
                     {project.featured && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-100 text-amber-800 border border-amber-300">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300 shadow-xs">
                         ★ Featured
                       </span>
                     )}
                   </div>
 
                   {/* Links */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     {project.live && (
                       <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-[#FAF8F4] hover:bg-[#EAE4D9] text-emerald-800 transition"
+                        className="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs shadow-xs hover:shadow-sm transition-all flex items-center gap-1"
                         title="Live Deployment"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline text-[11px]">Live</span>
                       </a>
                     )}
                     {project.github && (
@@ -75,25 +76,26 @@ export default function ProjectsSection() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-[#FAF8F4] hover:bg-[#EAE4D9] text-ink-secondary hover:text-ink-primary transition"
+                        className="px-2.5 py-1.5 rounded-xl bg-[#FAF8F4] hover:bg-[#F4EFE6] text-ink-primary font-bold text-xs border border-[#DDD6C9] shadow-xs hover:shadow-sm transition-all flex items-center gap-1"
                         title="GitHub Repository"
                       >
-                        <GithubIcon className="w-4 h-4" />
+                        <GithubIcon className="w-3.5 h-3.5 text-ink-primary" />
+                        <span className="hidden sm:inline text-[11px]">GitHub</span>
                       </a>
                     )}
                   </div>
                 </div>
 
                 {/* Title & Subtitle */}
-                <h3 className="text-xl sm:text-2xl font-black text-ink-primary font-sans tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-ink-primary font-sans tracking-tight group-hover:text-metro-backend transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-xs text-ink-muted font-medium mt-0.5 mb-3">
+                <p className="text-xs text-ink-muted font-bold mt-0.5 mb-3">
                   {project.subtitle}
                 </p>
 
                 {/* Overview */}
-                <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed font-sans mb-4">
+                <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed font-sans mb-4 font-medium">
                   {project.overview}
                 </p>
 
@@ -101,7 +103,7 @@ export default function ProjectsSection() {
                 {project.architecture && (
                   <div className="space-y-2 mb-5">
                     {project.architecture.slice(0, 3).map((item, aIdx) => (
-                      <div key={aIdx} className="flex items-start gap-2 text-xs text-ink-secondary leading-relaxed">
+                      <div key={aIdx} className="flex items-start gap-2 text-xs text-ink-secondary leading-relaxed font-medium">
                         <CheckCircle2 className="w-3.5 h-3.5 text-metro-backend shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </div>
@@ -111,13 +113,13 @@ export default function ProjectsSection() {
               </div>
 
               {/* Footer: Tech Stack & Code Button */}
-              <div className="pt-4 border-t border-[#DDD6C9] space-y-3">
+              <div className="pt-4 border-t border-[#EAE4D9] space-y-3">
                 {/* Tech Chips */}
                 <div className="flex flex-wrap gap-1.5">
                   {project.tech.map((t, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-0.5 rounded-md bg-[#FAF8F4] text-ink-secondary text-xs font-medium border border-[#DDD6C9]"
+                      className="px-2.5 py-1 rounded-lg bg-[#FAF8F4] text-ink-secondary text-xs font-semibold border border-[#DDD6C9] hover:bg-white hover:border-metro-backend/40 transition-colors"
                     >
                       {t}
                     </span>
@@ -126,10 +128,10 @@ export default function ProjectsSection() {
 
                 {/* Code Snippet Button if present */}
                 {project.codeSnippet && (
-                  <div className="pt-2 flex items-center justify-between">
+                  <div className="pt-1 flex items-center justify-between">
                     <button
                       onClick={() => setSelectedCodeProject(project)}
-                      className="flex items-center gap-1.5 text-xs font-bold text-metro-backend hover:underline"
+                      className="flex items-center gap-1.5 text-xs font-black text-metro-backend hover:text-[#154E8C] hover:underline"
                     >
                       <Code2 className="w-3.5 h-3.5" />
                       <span>View Implementation Code Snippet →</span>

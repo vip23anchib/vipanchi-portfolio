@@ -5,7 +5,7 @@ import { portfolioData } from '../data/portfolioData';
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-16 md:py-20 border-t border-[#DDD6C9]">
+    <section id="about" className="py-16 md:py-24 bg-[#F4EFE6]/60 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -24,8 +24,8 @@ export default function AboutSection() {
           
           {/* Left Column: Bio Narrative */}
           <div className="lg:col-span-7 space-y-4 text-ink-secondary text-sm sm:text-base leading-relaxed">
-            <div className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card space-y-4">
-              <p className="font-bold text-ink-primary text-base sm:text-lg">
+            <div className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper hover:shadow-paper-lg transition-all duration-300 space-y-4">
+              <p className="font-extrabold text-ink-primary text-base sm:text-lg leading-snug">
                 I am a backend developer and data systems engineer who enjoys architecting high-concurrency systems, writing resilient database transactions, and building intelligent data pipelines.
               </p>
               
@@ -37,14 +37,14 @@ export default function AboutSection() {
                 During my software internships at <strong>Meslova Systems</strong> and <strong>Saurabhi Media</strong>, I built B2B SaaS backend infrastructures, designed 15+ secure RESTful endpoints with role-based access control (RBAC), engineered watch-folder ETL daemons, and integrated speech-to-text diarization pipelines using Whisper & PyAnnote.
               </p>
 
-              <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold text-ink-secondary">
-                <span className="px-3 py-1.5 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5">
+              <div className="pt-3 border-t border-[#EAE4D9] flex flex-wrap gap-2.5 text-xs font-semibold text-ink-secondary">
+                <span className="px-3 py-1.5 rounded-xl bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5 shadow-xs">
                   <MapPin className="w-3.5 h-3.5 text-metro-backend" />
-                  <span>Bhopal / Hyderabad / Delhi, India</span>
+                  <span className="font-bold text-ink-primary">Bhopal / Hyderabad / Delhi, India</span>
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5">
+                <span className="px-3 py-1.5 rounded-xl bg-[#FAF8F4] border border-[#DDD6C9] flex items-center gap-1.5 shadow-xs">
                   <Award className="w-3.5 h-3.5 text-metro-gold" />
-                  <span>Smart India Hackathon Finalist</span>
+                  <span className="font-bold text-ink-primary">Smart India Hackathon Finalist</span>
                 </span>
               </div>
             </div>
@@ -52,36 +52,36 @@ export default function AboutSection() {
 
           {/* Right Column: Academic Credential Card */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card space-y-5">
+            <div className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper hover:shadow-paper-lg transition-all duration-300 space-y-5">
               
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start justify-between gap-3 pb-3 border-b border-[#EAE4D9]">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-metro-backend/10 text-metro-backend flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5" />
+                  <div className="w-11 h-11 rounded-xl bg-metro-backend/10 text-metro-backend flex items-center justify-center font-bold">
+                    <GraduationCap className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-ink-primary text-base">
+                    <h3 className="font-black text-ink-primary text-base sm:text-lg">
                       {portfolioData.education.institution}
                     </h3>
-                    <p className="text-xs text-ink-muted">
+                    <p className="text-xs text-ink-muted mt-0.5">
                       {portfolioData.education.degree} in {portfolioData.education.major}
                     </p>
                   </div>
                 </div>
 
-                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs border border-emerald-300 shrink-0">
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-black text-xs border border-emerald-300 shrink-0">
                   {portfolioData.education.cgpa}
                 </span>
               </div>
 
-              <div className="text-xs text-ink-muted font-medium flex items-center justify-between border-t border-b border-[#DDD6C9] py-2.5">
+              <div className="text-xs text-ink-muted font-medium flex items-center justify-between border-b border-[#EAE4D9] pb-3">
                 <span>Timeline: 2023 – May 2027</span>
-                <span>Graduation Status: Final Year Track</span>
+                <span className="font-bold text-ink-primary">Expected Graduation: May 2027</span>
               </div>
 
               {/* Coursework Badges */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary mb-2.5 flex items-center gap-1.5">
+                <h4 className="text-xs font-black uppercase tracking-wider text-ink-primary mb-3 flex items-center gap-1.5">
                   <BookOpen className="w-3.5 h-3.5 text-metro-backend" />
                   <span>Core Computer Science Disciplines</span>
                 </h4>
@@ -89,7 +89,7 @@ export default function AboutSection() {
                   {portfolioData.education.coursework.map((course, idx) => (
                     <div
                       key={idx}
-                      className="p-2 rounded-lg bg-[#FAF8F4] border border-[#DDD6C9] text-xs font-medium text-ink-secondary flex items-center gap-2"
+                      className="p-2.5 rounded-xl bg-[#FAF8F4] border border-[#DDD6C9] text-xs font-semibold text-ink-secondary flex items-center gap-2 hover:bg-white hover:border-metro-backend/50 hover:shadow-xs transition-all"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-metro-backend shrink-0" />
                       <span className="truncate">{course}</span>

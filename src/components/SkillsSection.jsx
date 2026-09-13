@@ -64,7 +64,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="py-16 md:py-20 border-t border-[#DDD6C9]">
+    <section id="skills" className="py-16 md:py-24 bg-[#FAF8F4] border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -76,7 +76,7 @@ export default function SkillsSection() {
           <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
             Skills & Engineering Domains
           </h2>
-          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl font-medium">
             Proficiencies categorized across backend systems, relational databases, AI/speech pipelines, and modern frontend tools.
           </p>
         </div>
@@ -88,23 +88,23 @@ export default function SkillsSection() {
             return (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex flex-col justify-between"
+                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper hover:shadow-paper-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   {/* Domain Header */}
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-[#EAE4D9]">
+                    <div className="flex items-center gap-3.5">
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-sm"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-md group-hover:scale-105 transition-transform"
                         style={{ backgroundColor: domain.color }}
                       >
                         {domain.code}
                       </div>
                       <div>
-                        <h3 className="font-extrabold text-ink-primary text-base">
+                        <h3 className="font-black text-ink-primary text-base sm:text-lg font-sans">
                           {domain.title}
                         </h3>
-                        <p className="text-xs text-ink-muted">
+                        <p className="text-xs text-ink-muted mt-0.5 leading-relaxed">
                           {domain.description}
                         </p>
                       </div>
@@ -112,18 +112,18 @@ export default function SkillsSection() {
                   </div>
 
                   {/* Skills List */}
-                  <div className="space-y-3.5 mt-5">
+                  <div className="space-y-4 mt-4">
                     {domain.skills.map((skill, sIdx) => (
-                      <div key={sIdx} className="space-y-1">
+                      <div key={sIdx} className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs font-bold text-ink-primary">
                           <span>{skill.name}</span>
-                          <span className="text-ink-muted font-mono text-[11px]">{skill.level}%</span>
+                          <span className="text-ink-muted font-mono text-[11px] font-bold">{skill.level}%</span>
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="w-full h-1.5 rounded-full bg-[#FAF8F4] border border-[#DDD6C9] overflow-hidden">
+                        <div className="w-full h-2 rounded-full bg-[#FAF8F4] border border-[#DDD6C9] overflow-hidden">
                           <div
-                            className="h-full rounded-full transition-all duration-1000"
+                            className="h-full rounded-full transition-all duration-1000 shadow-xs"
                             style={{
                               width: `${skill.level}%`,
                               backgroundColor: domain.color

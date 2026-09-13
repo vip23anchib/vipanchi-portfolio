@@ -12,7 +12,7 @@ export default function AchievementsSection() {
   };
 
   return (
-    <section id="achievements" className="py-16 md:py-20 border-t border-[#DDD6C9]">
+    <section id="achievements" className="py-16 md:py-24 bg-[#F4EFE6]/50 border-t border-[#DDD6C9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -24,7 +24,7 @@ export default function AchievementsSection() {
           <h2 className="text-3xl sm:text-4xl font-black text-ink-primary tracking-tight font-sans">
             Achievements & Leadership
           </h2>
-          <p className="text-sm text-ink-secondary mt-1 max-w-2xl">
+          <p className="text-sm text-ink-secondary mt-1 max-w-2xl font-medium">
             National hackathon placements, cybersecurity architecture recognition, and leadership initiatives.
           </p>
         </div>
@@ -36,28 +36,28 @@ export default function AchievementsSection() {
             return (
               <div
                 key={item.id}
-                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper-card flex items-start gap-4 transition-all hover:shadow-paper"
+                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DDD6C9] shadow-paper hover:shadow-paper-lg hover:-translate-y-1 flex items-start gap-4 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#FAF8F4] text-metro-gold border border-[#DDD6C9] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF8F4] text-metro-gold border border-[#DDD6C9] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6 text-metro-gold" />
                 </div>
 
                 <div className="space-y-2 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-50 text-amber-900 border border-amber-200">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-900 border border-amber-300 shadow-xs">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-extrabold text-ink-primary font-sans leading-snug">
+                  <h3 className="text-lg sm:text-xl font-black text-ink-primary font-sans leading-snug group-hover:text-metro-backend transition-colors">
                     {item.title}
                   </h3>
 
-                  <div className="text-xs font-bold text-ink-muted">
+                  <div className="text-xs font-extrabold text-ink-muted">
                     {item.event} • <span className="text-ink-secondary">{item.organizer}</span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed pt-1">
+                  <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed pt-1 font-medium">
                     {item.description}
                   </p>
                 </div>
