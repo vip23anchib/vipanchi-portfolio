@@ -27,36 +27,34 @@ export default function Navbar({ onOpenContact }) {
 
   return (
     <nav
-      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
-        scrolled
-          ? 'bg-[#FAF8F4]/95 backdrop-blur-md border-b border-[#DDD6C9] shadow-sm py-3'
-          : 'bg-[#FAF8F4] border-b border-[#EAE4D9] py-4'
+      className={`sticky top-0 z-40 w-full transition-all duration-200 bg-[#121622] border-b border-[#242C3D] shadow-lg ${
+        scrolled ? 'py-3 bg-[#121622]/98 backdrop-blur-md shadow-xl' : 'py-3.5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Brand Logo */}
         <a href="#" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-ink-primary text-white flex items-center justify-center font-black text-sm shadow-sm group-hover:bg-metro-backend transition">
+          <div className="w-9 h-9 rounded-xl bg-metro-backend text-white flex items-center justify-center font-black text-sm shadow-md ring-1 ring-white/20 group-hover:scale-105 group-hover:bg-[#2563EB] transition-all">
             VB
           </div>
           <div>
-            <span className="font-extrabold text-base tracking-tight text-ink-primary font-sans block">
+            <span className="font-black text-base tracking-tight text-white font-sans block group-hover:text-blue-300 transition-colors">
               Vipanchi Barman
             </span>
-            <span className="text-[11px] font-medium text-ink-muted block -mt-0.5">
+            <span className="text-[11px] font-semibold text-slate-400 block -mt-0.5">
               Backend & Data Systems Engineer
             </span>
           </div>
         </a>
 
         {/* Desktop Nav Links */}
-        <div className="hidden lg:flex items-center gap-6 text-xs font-bold text-ink-secondary">
+        <div className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="hover:text-metro-backend transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-metro-backend hover:after:w-full after:transition-all"
+              className="hover:text-white transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 hover:after:w-full after:transition-all"
             >
               {link.label}
             </a>
@@ -66,13 +64,13 @@ export default function Navbar({ onOpenContact }) {
         {/* Right CTA Actions & Socials */}
         <div className="hidden sm:flex items-center gap-2.5">
           {/* Social Icons */}
-          <div className="flex items-center gap-1 pr-1 border-r border-[#DDD6C9]">
+          <div className="flex items-center gap-1 pr-2 border-r border-[#2C3549]">
             <a
               href={portfolioData.personal.github}
               target="_blank"
               rel="noopener noreferrer"
               title="GitHub Profile"
-              className="p-2 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-[#FAF8F4] transition border border-transparent hover:border-[#DDD6C9]"
+              className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition border border-transparent hover:border-white/15"
             >
               <GithubIcon className="w-4 h-4" />
             </a>
@@ -81,7 +79,7 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               title="LeetCode Profile"
-              className="p-2 rounded-xl text-ink-secondary hover:text-[#FFA116] hover:bg-[#FAF8F4] transition border border-transparent hover:border-[#DDD6C9]"
+              className="p-2 rounded-xl text-slate-300 hover:text-[#FFA116] hover:bg-white/10 transition border border-transparent hover:border-white/15"
             >
               <LeetcodeIcon className="w-4 h-4" />
             </a>
@@ -90,7 +88,7 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               title="LinkedIn Profile"
-              className="p-2 rounded-xl text-ink-secondary hover:text-[#0A66C2] hover:bg-[#FAF8F4] transition border border-transparent hover:border-[#DDD6C9]"
+              className="p-2 rounded-xl text-slate-300 hover:text-[#38BDF8] hover:bg-white/10 transition border border-transparent hover:border-white/15"
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
@@ -100,7 +98,7 @@ export default function Navbar({ onOpenContact }) {
             href="/Barman_Vipanchi_Resume_10-09-2026.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-metro-backend hover:bg-[#154E8C] text-white text-xs font-bold shadow-sm transition"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-metro-backend hover:bg-[#1D6FD0] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Resume</span>
@@ -108,9 +106,9 @@ export default function Navbar({ onOpenContact }) {
 
           <button
             onClick={onOpenContact}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-[#F4EFE6] text-ink-primary text-xs font-bold border border-[#DDD6C9] shadow-sm transition"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/15 hover:border-white/30 transition-all shadow-sm"
           >
-            <Mail className="w-3.5 h-3.5 text-metro-backend" />
+            <Mail className="w-3.5 h-3.5 text-blue-300" />
             <span>Get in Touch</span>
           </button>
         </div>
@@ -118,7 +116,7 @@ export default function Navbar({ onOpenContact }) {
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-xl bg-white border border-[#DDD6C9] text-ink-secondary hover:text-ink-primary shadow-sm"
+          className="lg:hidden p-2 rounded-xl bg-white/10 border border-white/15 text-slate-200 hover:text-white shadow-sm"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -127,14 +125,14 @@ export default function Navbar({ onOpenContact }) {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-[#DDD6C9] px-4 py-4 space-y-3 shadow-lg animate-in slide-in-from-top-2 duration-200">
-          <div className="grid grid-cols-2 gap-2 text-xs font-bold text-ink-secondary pb-3 border-b border-[#DDD6C9]">
+        <div className="lg:hidden bg-[#121622] border-b border-[#242C3D] px-4 py-4 space-y-3 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          <div className="grid grid-cols-2 gap-2 text-xs font-bold text-slate-300 pb-3 border-b border-[#242C3D]">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-lg hover:bg-[#FAF8F4] hover:text-metro-backend transition"
+                className="p-2.5 rounded-lg hover:bg-white/10 hover:text-white transition"
               >
                 {link.label}
               </a>
@@ -142,12 +140,12 @@ export default function Navbar({ onOpenContact }) {
           </div>
 
           {/* Mobile Social Row */}
-          <div className="flex items-center justify-around py-2 border-b border-[#DDD6C9]">
+          <div className="flex items-center justify-around py-2 border-b border-[#242C3D]">
             <a
               href={portfolioData.personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-bold text-ink-primary"
+              className="flex items-center gap-1.5 text-xs font-bold text-slate-200 hover:text-white"
             >
               <GithubIcon className="w-4 h-4" />
               <span>GitHub</span>
@@ -165,7 +163,7 @@ export default function Navbar({ onOpenContact }) {
               href={portfolioData.personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-bold text-[#0A66C2]"
+              className="flex items-center gap-1.5 text-xs font-bold text-[#38BDF8]"
             >
               <LinkedinIcon className="w-4 h-4" />
               <span>LinkedIn</span>
@@ -187,9 +185,9 @@ export default function Navbar({ onOpenContact }) {
                 setMobileMenuOpen(false);
                 onOpenContact();
               }}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-[#FAF8F4] text-ink-primary text-xs font-bold border border-[#DDD6C9]"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/10 text-white text-xs font-bold border border-white/15"
             >
-              <Mail className="w-3.5 h-3.5 text-metro-backend" />
+              <Mail className="w-3.5 h-3.5 text-blue-300" />
               <span>Contact</span>
             </button>
           </div>
