@@ -9,7 +9,7 @@ export const portfolioData = {
     status: "Available for SDE / Backend Engineering Internships & Full-Time Roles",
     github: "https://github.com/vip23anchib",
     linkedin: "https://linkedin.com/in/vipanchi-barman", // default anchor
-    leetcode: "https://leetcode.com/u/vip23anchib",
+    leetcode: "https://leetcode.com/u/vip23anchi/",
     resumeUrl: "/Barman_Vipanchi_Resume_10-09-2026.pdf",
     stats: [
       { label: "Academic CGPA", value: "9.04", suffix: " / 10.0", detail: "VIT Bhopal CSE" },

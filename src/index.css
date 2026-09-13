@@ -91,3 +91,18 @@
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   letter-spacing: -0.01em;
 }
+
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-dash-flow {
+  animation: dashFlow 25s linear infinite;
+}
+
+.animate-dash-flow-reverse {
+  animation: dashFlow 35s linear infinite reverse;
+}
+

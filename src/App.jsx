@@ -9,24 +9,29 @@ import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+import TrainTrackNav from './components/TrainTrackNav';
 import StationInspector from './components/transit/StationInspector';
 import TransitContactModal from './components/transit/TransitContactModal';
 import { TRANSIT_STATIONS } from './data/transitData';
 
 export default function App() {
   const [selectedStationId, setSelectedStationId] = useState(null);
+  const [inspectingStationId, setInspectingStationId] = useState(null);
   const [activeLineFilter, setActiveLineFilter] = useState(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  const selectedStation = TRANSIT_STATIONS.find((s) => s.id === selectedStationId);
+  const inspectingStation = TRANSIT_STATIONS.find((s) => s.id === inspectingStationId);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F4] text-ink-primary font-sans selection:bg-metro-backend selection:text-white antialiased">
+    <div className="min-h-screen bg-[#FAF8F4] text-ink-primary font-sans selection:bg-metro-backend selection:text-white antialiased relative">
       
       {/* 1. Main Navigation */}
       <Navbar onOpenContact={() => setIsContactOpen(true)} />
 
-      {/* 2. Page Flow */}
+      {/* 2. Train-Track Side Navigation */}
+      <TrainTrackNav />
+
+      {/* 3. Page Flow */}
       <main>
         {/* Hero Section */}
         <Hero onOpenContact={() => setIsContactOpen(true)} />
@@ -43,6 +48,7 @@ export default function App() {
           onSelectStation={(id) => setSelectedStationId(id)}
           activeLineFilter={activeLineFilter}
           setActiveLineFilter={setActiveLineFilter}
+          onOpenFullDrawer={(id) => setInspectingStationId(id)}
         />
 
         {/* Work Experience Timeline */}
@@ -58,19 +64,22 @@ export default function App() {
         <ContactSection />
       </main>
 
-      {/* 3. Footer */}
+      {/* 4. Footer */}
       <Footer />
 
-      {/* 4. Station Detail Inspector Slide-Out Drawer */}
-      {selectedStation && (
+      {/* 5. Full Station Detail Inspector Slide-Out Drawer (When explicitly opened) */}
+      {inspectingStation && (
         <StationInspector
-          station={selectedStation}
-          onClose={() => setSelectedStationId(null)}
-          onSelectStation={(id) => setSelectedStationId(id)}
+          station={inspectingStation}
+          onClose={() => setInspectingStationId(null)}
+          onSelectStation={(id) => {
+            setSelectedStationId(id);
+            setInspectingStationId(id);
+          }}
         />
       )}
 
-      {/* 5. Quick Contact Modal */}
+      {/* 6. Quick Contact Modal */}
       <TransitContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}

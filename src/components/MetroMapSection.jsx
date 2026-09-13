@@ -9,7 +9,8 @@ export default function MetroMapSection({
   selectedStationId,
   onSelectStation,
   activeLineFilter,
-  setActiveLineFilter
+  setActiveLineFilter,
+  onOpenFullDrawer
 }) {
   return (
     <section id="network-map" className="py-16 md:py-20 border-t border-[#DDD6C9]">
@@ -46,6 +47,7 @@ export default function MetroMapSection({
               onSelectStation={onSelectStation}
               activeLineFilter={activeLineFilter}
               setActiveLineFilter={setActiveLineFilter}
+              onOpenFullDrawer={onOpenFullDrawer}
             />
 
             {/* Docked Skills Key in Bottom-Right Corner */}
@@ -53,7 +55,9 @@ export default function MetroMapSection({
               <TransitLegend
                 activeLineFilter={activeLineFilter}
                 setActiveLineFilter={setActiveLineFilter}
-                onOpenStation={onSelectStation}
+                onOpenStation={(id) => {
+                  onSelectStation(id);
+                }}
               />
             </div>
           </div>
@@ -62,7 +66,10 @@ export default function MetroMapSection({
           <div className="block md:hidden space-y-6">
             <VerticalStripMap
               selectedStationId={selectedStationId}
-              onSelectStation={onSelectStation}
+              onSelectStation={(id) => {
+                onSelectStation(id);
+                if (onOpenFullDrawer) onOpenFullDrawer(id);
+              }}
               activeLineFilter={activeLineFilter}
               setActiveLineFilter={setActiveLineFilter}
             />
