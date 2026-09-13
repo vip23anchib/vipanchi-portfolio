@@ -229,7 +229,7 @@ WHERE amount > dept_avg_spend + (3 * dept_stddev)
       category: "Backend & Systems",
       featured: false,
       github: "https://github.com/vip23anchib/LeetCodeSolutions",
-      live: "https://leetcode.com/u/vip23anchib",
+      live: "https://leetcode.com/u/vip23anchi/",
       tech: ["C++", "Python", "Data Structures", "Algorithms", "System Optimization"],
       overview: "Systematic repository of interview-grade algorithmic solutions across trees, dynamic programming, graph algorithms, and space/time complexity optimization.",
       architecture: [

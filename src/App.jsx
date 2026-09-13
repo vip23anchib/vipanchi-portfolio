@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import TrainTrackNav from './components/TrainTrackNav';
 import StationInspector from './components/transit/StationInspector';
 import TransitContactModal from './components/transit/TransitContactModal';
+import TrackDivider from './components/TrackDivider';
 import { TRANSIT_STATIONS } from './data/transitData';
 
 export default function App() {
@@ -33,16 +34,15 @@ export default function App() {
 
       {/* 3. Page Flow */}
       <main>
-        {/* Hero Section */}
         <Hero onOpenContact={() => setIsContactOpen(true)} />
 
-        {/* About Section */}
+        <TrackDivider />
         <AboutSection />
 
-        {/* Skills Section */}
+        <TrackDivider />
         <SkillsSection />
 
-        {/* Signature Interactive Metro Network Map Section */}
+        <TrackDivider />
         <MetroMapSection
           selectedStationId={selectedStationId}
           onSelectStation={(id) => setSelectedStationId(id)}
@@ -51,16 +51,16 @@ export default function App() {
           onOpenFullDrawer={(id) => setInspectingStationId(id)}
         />
 
-        {/* Work Experience Timeline */}
+        <TrackDivider />
         <ExperienceSection />
 
-        {/* Featured Projects Bento / Grid */}
+        <TrackDivider />
         <ProjectsSection />
 
-        {/* Hackathons & Honors Section */}
+        <TrackDivider />
         <AchievementsSection />
 
-        {/* Contact Form Section */}
+        <TrackDivider />
         <ContactSection />
       </main>
 

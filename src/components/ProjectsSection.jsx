@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { FolderGit2, ExternalLink, Code2, CheckCircle2, Copy, Check, X } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import { portfolioData } from '../data/portfolioData';
@@ -16,23 +17,36 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-20 md:py-28 bg-[#FAF8F4] border-t border-[#E8E2D9]">
+    <section id="projects" className="py-16 md:py-20 bg-[#FAF8F4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="mb-10">
-          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-1">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="w-10 h-[3px] bg-metro-backend rounded-full mb-5" />
+          <div className="flex items-center gap-2 text-metro-backend font-bold text-xs uppercase tracking-wider mb-2">
             <FolderGit2 className="w-4 h-4" />
             <span>Featured Engineering Work</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-[#111827] tracking-tight font-sans">
             Featured Projects
           </h2>
-          <p className="text-sm text-[#374151] mt-1 max-w-2xl font-medium">
+          <p className="text-sm text-[#374151] mt-2 max-w-2xl font-medium">
             Production-grade systems, concurrency-safe booking engines, forensic data analytics, and LLM shortlisting tools.
           </p>
-        </div>
+        </motion.div>
 
+        {/* Content Panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="rounded-3xl border border-[#E4DDD3] bg-white/50 shadow-[0_2px_24px_rgba(27,95,168,0.06)] p-6 sm:p-10"
+        >
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {portfolioData.projects.map((project) => (
@@ -115,6 +129,7 @@ export default function ProjectsSection() {
             </div>
           ))}
         </div>
+        </motion.div>
       </div>
 
       {/* Code Snippet Modal */}
