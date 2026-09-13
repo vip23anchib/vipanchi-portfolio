@@ -79,11 +79,6 @@
 
 .station-marker {
   cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.station-marker:hover {
-  transform: scale(1.18);
 }
 
 .map-typography {

@@ -124,9 +124,9 @@ export default function TransitMap({
       </div>
 
       {/* Main Printed Interactive SVG Canvas */}
-      <motion.svg
+      <svg
         viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-        className="w-full h-full cursor-grab active:cursor-grabbing transition-all duration-700 ease-out"
+        className="w-full h-full select-none"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
@@ -329,55 +329,55 @@ export default function TransitMap({
           <circle r="8.5" fill="#D99B16" stroke="#FFFFFF" strokeWidth="2" filter="url(#markerShadow)" />
           <circle r="3" fill="#FFFFFF" />
         </g>
-      </motion.svg>
+      </svg>
 
       {/* 4. Predictable Docked Station Detail Card & Hover Tooltip (Bottom Left) */}
       <AnimatePresence>
         {selectedStation ? (
-          /* Fixed Selected Station Detail Card */
+          /* Fixed Selected Station Detail Card - 100% Solid Opaque Background with Strong Dark Contrast */
           <motion.div
             key={selectedStation.id}
-            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute bottom-4 left-4 z-30 pointer-events-auto p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-md border border-[#DDD6C9] shadow-paper-lg max-w-[calc(100%-2rem)] sm:max-w-[420px] w-full text-xs animate-in fade-in"
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute bottom-4 left-4 z-30 pointer-events-auto p-5 sm:p-6 rounded-2xl bg-white border-2 border-[#DDD6C9] shadow-2xl max-w-[calc(100%-2rem)] sm:max-w-[430px] w-full text-xs animate-in fade-in"
           >
             {/* Header: Line pills, Category & Close Button */}
-            <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-[#EAE4D9]">
+            <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#E5E7EB]">
               <div className="flex items-center gap-1.5 flex-wrap">
                 {selectedStation.lines.map(lKey => {
                   const l = Object.values(TRANSIT_LINES).find(item => item.id === lKey);
                   return (
                     <span
                       key={lKey}
-                      className="px-2 py-0.5 rounded-full flex items-center justify-center font-black text-[9px] text-white shadow-sm"
+                      className="px-2.5 py-0.5 rounded-full flex items-center justify-center font-black text-[10px] text-white shadow-sm"
                       style={{ backgroundColor: l?.color }}
                     >
                       {l?.code}
                     </span>
                   );
                 })}
-                <span className="text-[11px] font-bold text-ink-secondary bg-[#FAF8F4] px-2 py-0.5 rounded-md border border-[#DDD6C9]">
+                <span className="text-[11px] font-bold text-[#1F2937] bg-[#F3F4F6] px-2.5 py-0.5 rounded-md border border-[#E5E7EB]">
                   {selectedStation.category}
                 </span>
               </div>
 
               <div className="flex items-center gap-1.5">
                 {selectedStation.codeSnippet && (
-                  <div className="flex items-center bg-[#EAE4D9] p-0.5 rounded-lg">
+                  <div className="flex items-center bg-[#F3F4F6] p-0.5 rounded-lg border border-[#E5E7EB]">
                     <button
                       onClick={() => setCardTab('overview')}
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold transition ${
-                        cardTab === 'overview' ? 'bg-white text-ink-primary shadow-xs' : 'text-ink-muted'
+                      className={`px-2.5 py-1 rounded text-[10px] font-bold transition ${
+                        cardTab === 'overview' ? 'bg-white text-[#111827] shadow-sm' : 'text-[#6B7280]'
                       }`}
                     >
                       Overview
                     </button>
                     <button
                       onClick={() => setCardTab('code')}
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 transition ${
-                        cardTab === 'code' ? 'bg-white text-metro-backend shadow-xs' : 'text-ink-muted'
+                      className={`px-2.5 py-1 rounded text-[10px] font-bold flex items-center gap-1 transition ${
+                        cardTab === 'code' ? 'bg-white text-metro-backend shadow-sm' : 'text-[#6B7280]'
                       }`}
                     >
                       <Code2 className="w-3 h-3" />
@@ -388,8 +388,8 @@ export default function TransitMap({
 
                 <button
                   onClick={() => onSelectStation(null)}
-                  title="Close card"
-                  className="p-1 rounded-lg hover:bg-[#F4EFE6] text-ink-muted hover:text-ink-primary transition"
+                  title="Close station details"
+                  className="p-1.5 rounded-lg hover:bg-[#F3F4F6] text-[#4B5563] hover:text-[#111827] transition"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -399,30 +399,30 @@ export default function TransitMap({
             {/* Body */}
             {cardTab === 'overview' ? (
               <div>
-                <div className="font-black text-ink-primary text-sm sm:text-base font-sans tracking-tight">
+                <div className="font-black text-[#111827] text-base sm:text-lg font-sans tracking-tight leading-snug">
                   {selectedStation.name}
                 </div>
-                <div className="text-[11px] text-ink-muted font-medium mt-0.5">
+                <div className="text-xs text-[#4B5563] font-semibold mt-0.5">
                   {selectedStation.subtitle}
                 </div>
 
-                <p className="text-ink-secondary text-xs line-clamp-3 mt-2 leading-relaxed font-sans">
+                <p className="text-[#1F2937] text-xs leading-relaxed font-medium mt-2.5">
                   {selectedStation.summary}
                 </p>
 
                 {/* Tech Chips */}
                 {selectedStation.techStack && (
-                  <div className="flex flex-wrap gap-1 mt-2.5">
+                  <div className="flex flex-wrap gap-1.5 mt-3">
                     {selectedStation.techStack.slice(0, 5).map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-md bg-[#FAF8F4] text-[10px] font-medium text-ink-secondary border border-[#DDD6C9]"
+                        className="px-2 py-0.5 rounded-md bg-[#F9FAFB] text-[11px] font-semibold text-[#1F2937] border border-[#E5E7EB]"
                       >
                         {tech}
                       </span>
                     ))}
                     {selectedStation.techStack.length > 5 && (
-                      <span className="px-1.5 py-0.5 rounded-md bg-[#FAF8F4] text-[10px] text-ink-muted">
+                      <span className="px-1.5 py-0.5 rounded-md bg-[#F3F4F6] text-[10px] font-bold text-[#6B7280]">
                         +{selectedStation.techStack.length - 5}
                       </span>
                     )}
@@ -430,15 +430,15 @@ export default function TransitMap({
                 )}
 
                 {/* Action Row */}
-                <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-[#EAE4D9]">
+                <div className="flex items-center gap-2 mt-4 pt-3 border-t border-[#E5E7EB]">
                   {selectedStation.live && (
                     <a
                       href={selectedStation.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-[11px] font-bold shadow-xs transition"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm transition"
                     >
-                      <ExternalLink className="w-3 h-3" />
+                      <ExternalLink className="w-3.5 h-3.5" />
                       <span>Live Site</span>
                     </a>
                   )}
@@ -448,9 +448,9 @@ export default function TransitMap({
                       href={selectedStation.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#FAF8F4] hover:bg-[#F4EFE6] text-ink-primary text-[11px] font-bold border border-[#DDD6C9] shadow-xs transition"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F9FAFB] hover:bg-[#F3F4F6] text-[#111827] text-xs font-bold border border-[#D1D5DB] shadow-sm transition"
                     >
-                      <GithubIcon className="w-3 h-3" />
+                      <GithubIcon className="w-3.5 h-3.5" />
                       <span>GitHub</span>
                     </a>
                   )}
@@ -458,10 +458,10 @@ export default function TransitMap({
                   {onOpenFullDrawer && (
                     <button
                       onClick={() => onOpenFullDrawer(selectedStation.id)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-metro-backend hover:bg-[#154E8C] text-white text-[11px] font-bold shadow-xs transition ml-auto"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-metro-backend hover:bg-[#154E8C] text-white text-xs font-bold shadow-sm transition ml-auto"
                     >
                       <span>Full Details</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   )}
                 </div>
@@ -469,11 +469,11 @@ export default function TransitMap({
             ) : (
               /* Inline Code Snippet */
               <div className="space-y-2 mt-1">
-                <div className="flex items-center justify-between text-[11px] text-ink-muted">
+                <div className="flex items-center justify-between text-xs text-[#4B5563] font-semibold">
                   <span>Implementation Snippet</span>
-                  <span className="font-mono text-[10px] text-metro-backend">Python / SQL</span>
+                  <span className="font-mono text-[11px] text-metro-backend font-bold">Python / SQL</span>
                 </div>
-                <pre className="p-3 rounded-xl bg-[#1E222B] text-emerald-300 font-mono text-[11px] max-h-36 overflow-y-auto border border-[#2D3340] leading-relaxed">
+                <pre className="p-3.5 rounded-xl bg-[#1E222B] text-emerald-300 font-mono text-[11.5px] max-h-40 overflow-y-auto border border-[#374151] leading-relaxed">
                   <code>{selectedStation.codeSnippet}</code>
                 </pre>
               </div>
@@ -482,10 +482,10 @@ export default function TransitMap({
         ) : hoveredStation ? (
           /* Hover Tooltip Preview */
           <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.96 }}
+            initial={{ opacity: 0, y: 6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.96 }}
-            className="absolute bottom-4 left-4 z-30 pointer-events-none p-3.5 rounded-xl bg-white border border-[#DDD6C9] shadow-paper-lg max-w-sm text-xs"
+            exit={{ opacity: 0, y: 4, scale: 0.98 }}
+            className="absolute bottom-4 left-4 z-30 pointer-events-none p-4 rounded-2xl bg-white border-2 border-[#DDD6C9] shadow-2xl max-w-sm text-xs"
           >
             {(() => {
               const st = TRANSIT_STATIONS.find(s => s.id === hoveredStation);
@@ -505,17 +505,17 @@ export default function TransitMap({
                         </span>
                       );
                     })}
-                    <span className="text-[11px] font-semibold text-ink-secondary">
+                    <span className="text-[11px] font-bold text-[#4B5563]">
                       {st.category}
                     </span>
                   </div>
-                  <div className="font-extrabold text-ink-primary text-sm">{st.name}</div>
-                  <p className="text-ink-secondary text-xs line-clamp-2 mt-1 leading-relaxed">
+                  <div className="font-black text-[#111827] text-sm">{st.name}</div>
+                  <p className="text-[#1F2937] text-xs line-clamp-2 mt-1 leading-relaxed font-medium">
                     {st.summary}
                   </p>
-                  <div className="mt-2 text-[11px] text-metro-backend font-bold flex items-center gap-1">
+                  <div className="mt-2.5 text-xs text-metro-backend font-black flex items-center gap-1">
                     <span>Click station to view details</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
               );
